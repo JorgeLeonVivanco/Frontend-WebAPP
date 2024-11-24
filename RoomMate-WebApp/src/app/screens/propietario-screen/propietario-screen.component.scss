@@ -1,0 +1,217 @@
+/* General container for the page */
+.interface-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+/* Left side: Properties list */
+.properties-list {
+  width: 60%;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+  scrollbar-width: thin; /* For Firefox */
+}
+
+.properties-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.properties-list::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 8px;
+}
+
+.properties-list::-webkit-scrollbar-thumb:hover {
+  background-color: #aaaaaa;
+}
+
+/* Each property item styling */
+.property-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.property-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Property image */
+.property-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+  border: 2px solid #ddd;
+  transition: border-color 0.3s ease;
+}
+
+.property-image:hover {
+  border-color: #d9534f;
+}
+
+/* Property details */
+.property-details {
+  flex: 1;
+  color: #333;
+}
+
+.property-details h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  color: #d9534f;
+}
+
+.property-details p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Property actions (edit/delete) */
+.property-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+.property-actions button {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-actions button:hover {
+  background-color: #d9534f;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.property-actions button:active {
+  transform: scale(0.95);
+}
+
+/* Right side: Map container */
+.map-container {
+  width: 40%;
+  height: 100vh;
+  background: #e9e9e9;
+  border-left: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.map-container .map-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .interface-container {
+    flex-direction: column;
+  }
+
+  .properties-list {
+    width: 100%;
+    height: 50%;
+    padding: 10px;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 50%;
+  }
+
+  .property-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .property-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .property-actions {
+    flex-direction: row;
+    gap: 5px;
+  }
+}
+
+.dynamic-title {
+  font-family: 'Poppins', sans-serif; /* Fuente moderna */
+  font-size: 28px; /* Tamaño del texto */
+  font-weight: bold; /* Texto grueso */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  text-align: center; /* Centrado */
+  margin-bottom: 20px; /* Espaciado inferior */
+  color: transparent; /* Hace que el gradiente sea visible */
+  background: linear-gradient(45deg, #d9534f, #5bc0de); /* Gradiente dinámico */
+  -webkit-background-clip: text; /* Soporte para navegadores WebKit */
+  background-clip: text; /* Propiedad estándar */
+  position: relative;
+  padding-bottom: 10px;
+  animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+}
+
+.dynamic-title::after {
+  content: ""; /* Línea decorativa debajo del texto */
+  display: block;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(45deg, #d9534f, #5bc0de); /* Gradiente en la línea */
+  margin: 10px auto 0;
+  border-radius: 5px; /* Bordes redondeados */
+  animation: grow 1s ease-in-out; /* Animación de crecimiento */
+}
+
+/* Keyframes para animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* Aparece desde arriba */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Posición final */
+  }
+}
+
+@keyframes grow {
+  from {
+    width: 0; /* Línea comienza sin ancho */
+  }
+  to {
+    width: 50%; /* Ancho final */
+  }
+}

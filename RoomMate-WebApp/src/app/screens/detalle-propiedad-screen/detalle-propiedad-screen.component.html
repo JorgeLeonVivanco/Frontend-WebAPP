@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+
+<div class="property-detail-container">
+  <h3>{{ propiedadSeleccionada.direccion || 'Sin dirección especificada' }}</h3>
+  <p><strong>Estado:</strong> {{ propiedadSeleccionada.estado || 'Sin estado especificado' }}</p>
+
+  <!-- Imágenes -->
+  <div class="images-gallery">
+    <img
+      *ngFor="let imagen of propiedadSeleccionada.imagenes"
+      [src]="imagen"
+      alt="Imagen de la propiedad"
+      class="gallery-image"
+    />
+  </div>
+
+  <!-- Detalles -->
+  <div class="property-details">
+    <h4>Servicios</h4>
+    <ul *ngIf="propiedadSeleccionada.servicios.length > 0; else noServicios">
+      <li *ngFor="let servicio of propiedadSeleccionada.servicios">{{ servicio }}</li>
+    </ul>
+    <ng-template #noServicios>
+      <p>No se especificaron servicios.</p>
+    </ng-template>
+  </div>
+
+  <!-- Calificaciones -->
+  <div class="property-ratings">
+    <h4>Calificaciones y Comentarios</h4>
+    <p *ngIf="propiedadSeleccionada.comentarios.length > 0">
+      <strong>{{ propiedadSeleccionada.calificacion || 'Sin calificación' }}</strong> -
+      {{ propiedadSeleccionada.comentarios.length }} reviews
+    </p>
+    <div *ngFor="let comentario of propiedadSeleccionada.comentarios">
+      <p><strong>{{ comentario.usuario }}</strong> ({{ comentario.fecha || 'Fecha no especificada' }})</p>
+      <p>{{ comentario.texto }}</p>
+    </div>
+    <p *ngIf="propiedadSeleccionada.comentarios.length === 0">No hay comentarios disponibles.</p>
+  </div>
+
+  <!-- Ubicación -->
+  <div class="map-container">
+    <h4>Ubicación</h4>
+    <iframe
+      *ngIf="propiedadSeleccionada.mapaUrl"
+      [src]="propiedadSeleccionada.mapaUrl"
+      width="100%"
+      height="300"
+      style="border: 0;"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+    <p *ngIf="!propiedadSeleccionada.mapaUrl">No hay ubicación disponible.</p>
+  </div>
+
+  <!-- Información del propietario -->
+  <div class="owner-details">
+    <h4>Propietario</h4>
+    <p><strong>{{ propiedadSeleccionada.propietario.nombre || 'Sin propietario especificado' }}</strong></p>
+    <p><strong>Correo:</strong> {{ propiedadSeleccionada.propietario.correo || 'Sin correo especificado' }}</p>
+    <p><strong>Teléfono:</strong> {{ propiedadSeleccionada.propietario.telefono || 'Sin teléfono especificado' }}</p>
+  </div>
+</div>

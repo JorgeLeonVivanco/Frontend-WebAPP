@@ -1,0 +1,115 @@
+.wrapper .navbar {
+  background-color: #d9534f;
+  color: #ffffff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.wrapper .navbar .navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.wrapper .navbar .search-bar {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.wrapper .navbar .search-bar input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+}
+
+.wrapper .navbar .filter-buttons {
+  display: flex;
+  gap: 1cm; /* Separación de 1 cm entre el botón de filtros y el ícono de usuario */
+  flex-wrap: wrap;
+}
+
+.wrapper .navbar .filter-buttons .filter-button {
+  font-size: 0.9rem;
+  padding: 8px 15px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #d9534f;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.wrapper .navbar .filter-buttons .filter-button i {
+  margin-right: 5px;
+}
+
+.wrapper .navbar .filter-buttons .filter-button:hover {
+  background-color: #c9302c;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Menú de usuario y Dropdown */
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  margin-left: 1cm; /* Separación de 1 cm entre el botón de filtros y el ícono de usuario */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  color: #d9534f;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.user-menu:hover .dropdown-menu,
+.user-icon:focus + .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  color: #d9534f;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item i {
+  margin-right: 5px;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
