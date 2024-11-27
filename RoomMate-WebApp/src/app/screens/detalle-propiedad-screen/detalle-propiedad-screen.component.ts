@@ -16,11 +16,6 @@ export class DetallePropiedadScreenComponent implements OnInit {
     servicios: [],
     calificacion: null,
     comentarios: [],
-    propietario: {
-      nombre: '',
-      correo: '',
-      telefono: '',
-    },
     mapaUrl: '',
   };
 
@@ -38,18 +33,26 @@ export class DetallePropiedadScreenComponent implements OnInit {
   obtenerDetallePropiedad(id: number): void {
     this.propiedadService.getPropiedadByID(id).subscribe(
       (response) => {
-        // Asignar datos a la propiedad seleccionada
-        this.propiedadSeleccionada = {
-          ...response,
-          propietario: response.propietario || {
-            nombre: 'No especificado',
-            correo: 'No especificado',
-            telefono: 'No especificado',
-          },
-          servicios: response.servicios || [],
-          comentarios: response.comentarios || [],
-          imagenes: response.imagenes || [],
-        };
+        // Asegúrate de obtener el campo `servicios_json`
+        const serviciosJson = response.servicios_json;
+
+        console.log('Contenido de servicios_json:', serviciosJson); // Imprime el contenido
+
+        // Verifica si el valor tiene barras invertidas extra antes de intentar parsearlo
+        if (serviciosJson) {
+          try {
+            // Intenta parsear el JSON, si es válido
+            const serviciosArray = JSON.parse(serviciosJson.replace(/\\"/g, '"'));
+            this.propiedadSeleccionada = {
+              ...response,
+              servicios: serviciosArray || [],  // Conversión de servicios_json a arreglo
+              comentarios: response.comentarios || [],
+              imagenes: response.imagenes || [],
+            };
+          } catch (e) {
+            console.error('Error al parsear servicios_json:', e);
+          }
+        }
 
         // Sanitizar URL del mapa para evitar errores de seguridad
         if (response.mapaUrl) {

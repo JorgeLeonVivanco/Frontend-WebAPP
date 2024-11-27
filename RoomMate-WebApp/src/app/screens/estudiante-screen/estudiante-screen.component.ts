@@ -25,8 +25,11 @@ export class EstudianteScreenComponent implements OnInit {
   obtenerPropiedades(): void {
     this.propiedadService.obtenerListaPropiedades().subscribe(
       (response) => {
-        this.lista_propiedades = response; // Guardar propiedades en la lista
-        console.log('Propiedades cargadas:', this.lista_propiedades);
+        // Filtrar las propiedades disponibles
+        this.lista_propiedades = response.filter(
+          (propiedad: any) => propiedad.estado === 'Disponible'
+        );
+        console.log('Propiedades disponibles cargadas:', this.lista_propiedades);
       },
       (error) => {
         alert('Error al cargar las propiedades.');

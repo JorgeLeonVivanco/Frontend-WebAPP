@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit{
   showFilterModal: boolean = false;
   showUserMenu: boolean = false;
   searchTerm: string = '';
-  userRole: string = 'Estudiante'; // Cambia el valor según el rol actual
 
   filters = {
     price: 0,
@@ -62,7 +61,7 @@ export class NavbarComponent implements OnInit{
   }
 
   goToRegistrar() {
-    if (this.userRole === 'Propietario') {
+    if (this.rol === 'Propietario') {
       this.router.navigate(['/registro-propiedad']);
     }
   }
@@ -81,7 +80,7 @@ export class NavbarComponent implements OnInit{
       }
     );
   }
-  
+
   toggleFilterModal() {
     this.showFilterModal = !this.showFilterModal;
   }

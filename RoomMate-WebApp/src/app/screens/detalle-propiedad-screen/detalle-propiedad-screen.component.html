@@ -2,7 +2,6 @@
 
 <div class="property-detail-container">
   <h3>{{ propiedadSeleccionada.direccion || 'Sin dirección especificada' }}</h3>
-  <p><strong>Estado:</strong> {{ propiedadSeleccionada.estado || 'Sin estado especificado' }}</p>
 
   <!-- Imágenes -->
   <div class="images-gallery">
@@ -14,16 +13,16 @@
     />
   </div>
 
-  <!-- Detalles -->
-  <div class="property-details">
-    <h4>Servicios</h4>
-    <ul *ngIf="propiedadSeleccionada.servicios.length > 0; else noServicios">
-      <li *ngFor="let servicio of propiedadSeleccionada.servicios">{{ servicio }}</li>
-    </ul>
-    <ng-template #noServicios>
-      <p>No se especificaron servicios.</p>
-    </ng-template>
-  </div>
+ <!-- Detalles -->
+ <div class="property-details">
+  <h4>Servicios</h4>
+  <ul *ngIf="propiedadSeleccionada.servicios.length > 0; else noServicios">
+    <li *ngFor="let servicio of propiedadSeleccionada.servicios">{{ servicio }}</li>
+  </ul>
+  <ng-template #noServicios>
+    <p>No se especificaron servicios.</p>
+  </ng-template>
+</div>
 
   <!-- Calificaciones -->
   <div class="property-ratings">
@@ -52,13 +51,5 @@
       loading="lazy"
     ></iframe>
     <p *ngIf="!propiedadSeleccionada.mapaUrl">No hay ubicación disponible.</p>
-  </div>
-
-  <!-- Información del propietario -->
-  <div class="owner-details">
-    <h4>Propietario</h4>
-    <p><strong>{{ propiedadSeleccionada.propietario.nombre || 'Sin propietario especificado' }}</strong></p>
-    <p><strong>Correo:</strong> {{ propiedadSeleccionada.propietario.correo || 'Sin correo especificado' }}</p>
-    <p><strong>Teléfono:</strong> {{ propiedadSeleccionada.propietario.telefono || 'Sin teléfono especificado' }}</p>
   </div>
 </div>

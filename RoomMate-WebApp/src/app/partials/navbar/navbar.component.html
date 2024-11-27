@@ -1,27 +1,27 @@
 <div class="wrapper">
-        <nav class="navbar">
-          <div class="navbar-logo">
-            <span class="app-title">RoomMate Buap</span>
-          </div>
-      
-          <!-- Menú de usuario -->
-          <div class="user-menu">
-            <i class="bi bi-person-circle user-icon" (click)="toggleUserMenu()"></i>
-            <div *ngIf="showUserMenu" class="dropdown-menu">
-              <div class="dropdown-item" (click)="goToSobreMi()">
-                <i class="bi bi-person"></i> Sobre mí
-              </div>
-              <!-- Mostrar "Registrar" solo si el rol es "Propietario" -->
-              <div
-                class="dropdown-item"
-                *ngIf="userRole === 'Propietario'"
-                (click)="goToRegistrar()"
-              >
-                <i class="bi bi-clipboard"></i> Registrar
-              </div>
-              <div class="dropdown-item" (click)="cerrarSesion()">
-                <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-              </div>
-            </div>
-          </div>
-        </nav>
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <span class="app-title">RoomMate Buap</span>
+    </div>
+
+    <!-- Menú de usuario -->
+    <div class="user-menu">
+      <i class="bi bi-person-circle user-icon" (click)="toggleUserMenu()"></i>
+      <div *ngIf="showUserMenu" class="dropdown-menu">
+        <div class="dropdown-item" (click)="goToSobreMi()">
+          <i class="bi bi-person"></i> Sobre mí
+        </div>
+        <!-- Mostrar "Registrar" solo si el rol es "Propietario" -->
+        <div
+          class="dropdown-item"
+          *ngIf="rol === 'Propietario'"
+          (click)="goToRegistrar()"
+        >
+          <i class="bi bi-clipboard"></i> Registrar
+        </div>
+        <div class="dropdown-item" (click)="cerrarSesion()">
+          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+        </div>
+      </div>
+    </div>
+  </nav>
