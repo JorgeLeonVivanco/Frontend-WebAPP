@@ -46,7 +46,7 @@ export class RegistroPropiedadComponent implements OnInit {
 
   public servicios: any[] = [
     { value: '1', nombre: 'Agua potable' },
-    { value: '2', nombre: 'Luz eléctrica' },
+    { value: '2', nombre: 'Luz electrica' },
     { value: '3', nombre: 'Internet' },
     { value: '4', nombre: 'Mascotas' },
     { value: '5', nombre: 'Cocina' },
@@ -103,12 +103,12 @@ export class RegistroPropiedadComponent implements OnInit {
     // Validar que los campos requeridos no estén vacíos
     const requiredFields = ['direccion', 'habitaciones', 'capacidad', 'precio', 'sanitarios', 'telefono', 'estados'];
     const emptyFields = requiredFields.filter((field) => !this.propiedad[field]);
-  
+
     if (emptyFields.length > 0) {
       alert(`Los siguientes campos son obligatorios y están vacíos: ${emptyFields.join(', ')}`);
       return;
     }
-  
+
     if (this.editar) {
       // Modo edición
       this.propiedadService.editarPropiedad(this.propiedad).subscribe(
@@ -137,8 +137,8 @@ export class RegistroPropiedadComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
 
   onFileSelected(event: any): void {
     if (event.target.files) {

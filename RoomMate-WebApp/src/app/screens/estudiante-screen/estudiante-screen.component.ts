@@ -27,7 +27,7 @@ export class EstudianteScreenComponent implements OnInit {
       (response) => {
         // Filtrar las propiedades disponibles
         this.lista_propiedades = response.filter(
-          (propiedad: any) => propiedad.estado === 'Disponible'
+          (propiedad: any) => propiedad.estados === 'Disponible'
         );
         console.log('Propiedades disponibles cargadas:', this.lista_propiedades);
       },

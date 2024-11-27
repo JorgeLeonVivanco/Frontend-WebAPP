@@ -19,6 +19,7 @@ export class DetallePropiedadScreenComponent implements OnInit {
     mapaUrl: '',
   };
 
+
   constructor(
     private route: ActivatedRoute,
     private propiedadService: PropiedadService,
@@ -33,40 +34,38 @@ export class DetallePropiedadScreenComponent implements OnInit {
   obtenerDetallePropiedad(id: number): void {
     this.propiedadService.getPropiedadByID(id).subscribe(
       (response) => {
-        // Asegúrate de obtener el campo `servicios_json`
         const serviciosJson = response.servicios_json;
 
-        console.log('Contenido de servicios_json:', serviciosJson); // Imprime el contenido
-
-        // Verifica si el valor tiene barras invertidas extra antes de intentar parsearlo
         if (serviciosJson) {
           try {
-            // Intenta parsear el JSON, si es válido
             const serviciosArray = JSON.parse(serviciosJson.replace(/\\"/g, '"'));
             this.propiedadSeleccionada = {
               ...response,
-              servicios: serviciosArray || [],  // Conversión de servicios_json a arreglo
+              servicios: serviciosArray || [],
               comentarios: response.comentarios || [],
               imagenes: response.imagenes || [],
+              propietario: response.propietario || {  // Mapear propietario
+                nombre: 'Sin información',
+                correo: 'No especificado',
+                telefono: 'No especificado',
+              },
             };
-          } catch (e) {
+
+          }
+          catch (e) {
             console.error('Error al parsear servicios_json:', e);
           }
         }
-
-        // Sanitizar URL del mapa para evitar errores de seguridad
-        if (response.mapaUrl) {
-          this.propiedadSeleccionada.mapaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-            response.mapaUrl
-          ) as string;
-        }
-
         console.log('Propiedad cargada:', this.propiedadSeleccionada);
+
       },
+
       (error) => {
         console.error('Error al cargar la propiedad seleccionada:', error);
         alert('No se pudo cargar la propiedad seleccionada.');
       }
     );
+
   }
+
 }

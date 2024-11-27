@@ -52,4 +52,13 @@
     ></iframe>
     <p *ngIf="!propiedadSeleccionada.mapaUrl">No hay ubicación disponible.</p>
   </div>
+
+  <!-- Información del propietario -->
+  <div class="owner-details">
+    <h4>Propietario</h4>
+    <p><strong>{{ propiedadSeleccionada.propietario.nombre || 'Sin propietario especificado' }}</strong></p>
+    <p><strong>Correo:</strong> {{ propiedadSeleccionada.propietario.correo || 'Sin correo especificado' }}</p>
+    <p><strong>Teléfono:</strong> {{ propiedadSeleccionada.propietario.telefono || 'Sin teléfono especificado' }}</p>
+  </div>
+
 </div>
