@@ -8,6 +8,17 @@
   background-color: #f0f0f0;
 }
 
+.comment-warning {
+  display: flex;
+  align-items: center;
+  color: red; /* Color rojo para el ícono */
+  font-weight: bold;
+}
+
+.comment-count {
+  margin-left: 5px;
+}
+
 /* Left side: Properties list */
 .properties-list {
   width: 60%;
@@ -41,6 +52,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 15px;
+  cursor: pointer;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 

@@ -46,7 +46,7 @@
   </ng-template>
 
   <!-- Formulario para agregar un nuevo comentario -->
-  <div class="add-comment">
+  <div class="add-comment" *ngIf="rol !== 'Propietario'">
     <h5>Agregar un comentario</h5>
     <textarea
       [(ngModel)]="nuevoComentario.texto"

@@ -37,16 +37,16 @@ export class PropietarioScreenComponent implements OnInit {
   obtenerPropiedades() {
     this.propiedadService.obtenerListaPropiedades().subscribe(
       (response) => {
-        // Filtrar propiedades que coincidan con el cliente actual
         this.lista_propiedades = response.filter(
           (propiedad: any) => propiedad.cliente === this.idCliente
         ).map((propiedad: any) => ({
           ...propiedad,
+          comentarios: propiedad.comentarios || [], // Asegura que siempre haya un array
+          comentariosLeidos: propiedad.comentariosLeidos || false, // Inicializa el estado de comentariosLeidos
           servicios_json: Array.isArray(propiedad.servicios_json)
             ? propiedad.servicios_json
-            : [propiedad.servicios_json], // Asegurarse de que servicios_json sea un array
+            : [propiedad.servicios_json],
         }));
-        console.log('Propiedades cargadas:', this.lista_propiedades);
       },
       (error) => {
         alert('Error al cargar las propiedades.');
@@ -83,4 +83,16 @@ export class PropietarioScreenComponent implements OnInit {
     }
     return servicios; // Si no es un array, regresa el valor tal cual
   }
+
+  verDetallePropiedad(idPropiedad: number): void {
+    // Navegar a la vista de detalle
+    this.router.navigate([`/detalle-propiedad/${idPropiedad}`]);
+
+    // Marcar los comentarios como leídos una vez que se vean los detalles
+    const propiedad = this.lista_propiedades.find(prop => prop.id === idPropiedad);
+    if (propiedad) {
+      propiedad.comentariosLeidos = true;  // Marcar como leído
+    }
+  }
+
 }

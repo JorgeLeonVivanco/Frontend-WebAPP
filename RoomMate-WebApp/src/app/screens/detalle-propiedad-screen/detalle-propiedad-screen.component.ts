@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PropiedadService } from 'src/services/propiedad.service';
+import { FacadeService } from 'src/services/facade.service';
 
 @Component({
   selector: 'app-detalle-propiedad-screen',
@@ -19,14 +20,19 @@ export class DetallePropiedadScreenComponent implements OnInit {
     mapaUrl: '',
   };
 
+  public rol:string = "";
 
   constructor(
     private route: ActivatedRoute,
     private propiedadService: PropiedadService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private facadeService: FacadeService
+
   ) {}
 
   ngOnInit(): void {
+    this.rol = this.facadeService.getUserGroup();
+    console.log("Tipo: ", this.rol);
     const idPropiedad = this.route.snapshot.paramMap.get('id');
     this.obtenerDetallePropiedad(Number(idPropiedad));
   }
