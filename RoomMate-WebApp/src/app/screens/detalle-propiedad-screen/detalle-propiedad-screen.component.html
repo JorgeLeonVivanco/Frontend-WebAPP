@@ -24,19 +24,40 @@
   </ng-template>
 </div>
 
-  <!-- Calificaciones -->
-  <div class="property-ratings">
-    <h4>Calificaciones y Comentarios</h4>
-    <p *ngIf="propiedadSeleccionada.comentarios.length > 0">
-      <strong>{{ propiedadSeleccionada.calificacion || 'Sin calificación' }}</strong> -
-      {{ propiedadSeleccionada.comentarios.length }} reviews
+ <!-- Calificaciones y Comentarios -->
+<div class="property-ratings">
+  <h4>Calificaciones y Comentarios</h4>
+
+<!-- Mostrar comentarios existentes -->
+<div *ngIf="propiedadSeleccionada?.comentarios?.length > 0; else noComentarios">
+  <h5>Comentarios</h5>
+  <div *ngFor="let comentario of propiedadSeleccionada.comentarios" class="comentario">
+    <p>
+      <strong>{{ comentario.usuario || 'Usuario desconocido' }}</strong>
+      <span class="fecha">{{ comentario.fecha | date: 'short' }}</span>
     </p>
-    <div *ngFor="let comentario of propiedadSeleccionada.comentarios">
-      <p><strong>{{ comentario.usuario }}</strong> ({{ comentario.fecha || 'Fecha no especificada' }})</p>
-      <p>{{ comentario.texto }}</p>
-    </div>
-    <p *ngIf="propiedadSeleccionada.comentarios.length === 0">No hay comentarios disponibles.</p>
+    <p>{{ comentario.texto || 'Sin texto' }}</p>
   </div>
+</div>
+
+  <!-- Plantilla para mostrar si no hay comentarios -->
+  <ng-template #noComentarios>
+    <p>No hay comentarios disponibles para esta propiedad.</p>
+  </ng-template>
+
+  <!-- Formulario para agregar un nuevo comentario -->
+  <div class="add-comment">
+    <h5>Agregar un comentario</h5>
+    <textarea
+      [(ngModel)]="nuevoComentario.texto"
+      placeholder="Escribe tu comentario aquí..."
+      rows="3"
+      class="form-control">
+    </textarea>
+    <button (click)="agregarComentario()" class="btn btn-primary mt-2">Agregar comentario</button>
+  </div>
+</div>
+
 
   <!-- Ubicación -->
   <div class="map-container">

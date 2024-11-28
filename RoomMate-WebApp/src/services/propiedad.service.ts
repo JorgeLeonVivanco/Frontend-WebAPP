@@ -70,12 +70,12 @@ export class PropiedadService {
   public obtenerListaPropiedades(): Observable<any> {
     const token = this.facadeService.getSessionToken();
     const userId = this.facadeService.getUserId(); // Obtener el ID del usuario autenticado
-  
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
-  
+
     // Agregar el ID del usuario como parámetro en la solicitud
     return this.http.get<any>(
       `${environment.url_api}/lista-propiedades/?user_id=${userId}`,
@@ -92,7 +92,7 @@ export class PropiedadService {
     const url = `${environment.url_api}/propiedades/${idPropiedad}/`;
     return this.http.get<any>(url, { headers });
   }
-  
+
   public eliminarPropiedad(idUser: number): Observable<any> {
     const token = this.facadeService.getSessionToken();
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + token });
@@ -104,4 +104,31 @@ export class PropiedadService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + token });
     return this.http.put<any>(`${environment.url_api}/propiedades-edit/`, data, { headers });
   }
+
+  public agregarComentario(idPropiedad: number, comentario: any): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const clienteNombre = this.facadeService.getUserCompleteName(); // Obtener el nombre del cliente
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    // Construir el comentario con formato adecuado
+    const comentarioData = {
+      usuario: clienteNombre || 'Usuario sin nombre', // Usar el nombre real del cliente
+      fecha: new Date().toISOString(),  // Usar la fecha actual
+      texto: comentario.texto.trim(),  // El texto del comentario
+    };
+
+    return this.http.post<any>(
+      `${environment.url_api}/propiedades/${idPropiedad}/comentarios/`,
+      { comentario: comentarioData },  // Enviar el comentario estructurado
+      { headers }
+    );
+  }
+
+
+
 }
+
+///ssss
