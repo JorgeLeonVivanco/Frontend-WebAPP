@@ -105,6 +105,7 @@ export class PropiedadService {
     return this.http.put<any>(`${environment.url_api}/propiedades-edit/`, data, { headers });
   }
 
+  // Método para agregar un comentario
   public agregarComentario(idPropiedad: number, comentario: any): Observable<any> {
     const token = this.facadeService.getSessionToken();
     const clienteNombre = this.facadeService.getUserCompleteName(); // Obtener el nombre del cliente
@@ -113,22 +114,52 @@ export class PropiedadService {
       Authorization: `Bearer ${token}`,
     });
 
-    // Construir el comentario con formato adecuado
     const comentarioData = {
-      usuario: clienteNombre || 'Usuario sin nombre', // Usar el nombre real del cliente
-      fecha: new Date().toISOString(),  // Usar la fecha actual
-      texto: comentario.texto.trim(),  // El texto del comentario
+      usuario: clienteNombre || 'Usuario sin nombre',
+      fecha: new Date().toISOString(),
+      texto: comentario.texto.trim(),
     };
 
     return this.http.post<any>(
       `${environment.url_api}/propiedades/${idPropiedad}/comentarios/`,
-      { comentario: comentarioData },  // Enviar el comentario estructurado
+      { comentario: comentarioData },
       { headers }
     );
   }
 
+  public editarComentario(idPropiedad: number, comentario: any): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const comentarioData = { texto: comentario.texto.trim() }; // El texto del comentario editado
 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
 
+    return this.http.put<any>(
+      `${environment.url_api}/propiedades/${idPropiedad}/comentarios/editar/`,
+      { comentario: comentarioData },
+      { headers }
+    );
+  }
+
+  // Método para eliminar un comentario basado en el nombre del usuario
+  public eliminarComentario(idPropiedad: number, usuario: string): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.delete<any>(
+      `${environment.url_api}/propiedades/${idPropiedad}/comentarios/eliminar/${usuario}/`,
+      { headers }
+    );
+  }
 }
+
+
+
+
 
 ///ssss

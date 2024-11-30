@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <div class="property-detail-container">
   <h3>{{ propiedadSeleccionada.direccion || 'Sin dirección especificada' }}</h3>
 
@@ -13,51 +12,76 @@
     />
   </div>
 
- <!-- Detalles -->
- <div class="property-details">
-  <h4>Servicios</h4>
-  <ul *ngIf="propiedadSeleccionada.servicios.length > 0; else noServicios">
-    <li *ngFor="let servicio of propiedadSeleccionada.servicios">{{ servicio }}</li>
-  </ul>
-  <ng-template #noServicios>
-    <p>No se especificaron servicios.</p>
-  </ng-template>
-</div>
+  <!-- Detalles -->
+  <div class="property-details">
+    <h4>Servicios</h4>
+    <ul *ngIf="propiedadSeleccionada.servicios.length > 0; else noServicios">
+      <li *ngFor="let servicio of propiedadSeleccionada.servicios">{{ servicio }}</li>
+    </ul>
+    <ng-template #noServicios>
+      <p>No se especificaron servicios.</p>
+    </ng-template>
+  </div>
 
- <!-- Calificaciones y Comentarios -->
-<div class="property-ratings">
-  <h4>Calificaciones y Comentarios</h4>
+  <!-- Calificaciones y Comentarios -->
+  <div class="property-ratings">
+    <h4>Calificaciones y Comentarios</h4>
 
-<!-- Mostrar comentarios existentes -->
+    <!-- Mostrar comentarios -->
 <div *ngIf="propiedadSeleccionada?.comentarios?.length > 0; else noComentarios">
-  <h5>Comentarios</h5>
   <div *ngFor="let comentario of propiedadSeleccionada.comentarios" class="comentario">
     <p>
       <strong>{{ comentario.usuario || 'Usuario desconocido' }}</strong>
       <span class="fecha">{{ comentario.fecha | date: 'short' }}</span>
     </p>
     <p>{{ comentario.texto || 'Sin texto' }}</p>
+
+    <!-- Formulario para editar el comentario (si el usuario es el propietario del comentario) -->
+    <div *ngIf="comentario.usuario === nombreUsuario" class="edit-comment">
+      <!-- Icono de lápiz para editar comentario -->
+      <span (click)="onEditarComentario(comentario)" class="text-warning" aria-label="Editar comentario">
+        <i class="bi bi-pencil-square"></i>
+      </span>
+
+      <!-- Icono de basura para eliminar comentario -->
+      <span (click)="eliminarComentario()" class="text-danger" aria-label="Eliminar comentario">
+        <i class="bi bi-trash3-fill"></i>
+      </span>
+     </div>
   </div>
 </div>
 
-  <!-- Plantilla para mostrar si no hay comentarios -->
-  <ng-template #noComentarios>
-    <p>No hay comentarios disponibles para esta propiedad.</p>
-  </ng-template>
+<!-- Plantilla para mostrar si no hay comentarios -->
+<ng-template #noComentarios>
+  <p>No hay comentarios disponibles para esta propiedad.</p>
+</ng-template>
 
-  <!-- Formulario para agregar un nuevo comentario -->
-  <div class="add-comment" *ngIf="rol !== 'Propietario'">
-    <h5>Agregar un comentario</h5>
-    <textarea
-      [(ngModel)]="nuevoComentario.texto"
-      placeholder="Escribe tu comentario aquí..."
-      rows="3"
-      class="form-control">
-    </textarea>
-    <button (click)="agregarComentario()" class="btn btn-primary mt-2">Agregar comentario</button>
-  </div>
+<!-- Formulario para editar un comentario -->
+<div *ngIf="comentarioEditando" class="edit-comment-form">
+  <textarea [(ngModel)]="comentarioEditando.texto" rows="3" class="form-control"></textarea>
+  <button (click)="guardarComentario()" class="btn btn-success mt-2">Guardar comentario</button>
+  <button (click)="cancelarEdicion()" class="btn btn-secondary mt-2">Cancelar</button>
 </div>
 
+
+
+    <!-- Plantilla para mostrar si no hay comentarios -->
+    <ng-template #noComentarios>
+      <p>No hay comentarios disponibles para esta propiedad.</p>
+    </ng-template>
+
+    <!-- Formulario para agregar un nuevo comentario -->
+    <div class="add-comment" *ngIf="rol !== 'Propietario'">
+      <h5>Agregar un comentario</h5>
+      <textarea
+        [(ngModel)]="nuevoComentario.texto"
+        placeholder="Escribe tu comentario aquí..."
+        rows="3"
+        class="form-control">
+      </textarea>
+      <button (click)="agregarComentario()" class="btn btn-primary mt-2">Agregar comentario</button>
+    </div>
+  </div>
 
   <!-- Ubicación -->
   <div class="map-container">
@@ -81,5 +105,4 @@
     <p><strong>Correo:</strong> {{ propiedadSeleccionada.propietario.correo || 'Sin correo especificado' }}</p>
     <p><strong>Teléfono:</strong> {{ propiedadSeleccionada.propietario.telefono || 'Sin teléfono especificado' }}</p>
   </div>
-
 </div>

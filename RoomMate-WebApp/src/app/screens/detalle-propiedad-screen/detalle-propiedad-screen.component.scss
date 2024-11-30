@@ -1,131 +1,180 @@
 .property-detail-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  width: 100%;
+  max-width: 90%; /* Aumenté el ancho máximo */
+  margin: 20px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #ffffff, #f2f2f2);
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   color: #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .property-detail-container:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #ffffff, #e6e6e6);
 }
 
 h3 {
   text-align: center;
   color: #ff5722;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  color: #000; /* Cambié el color del texto a negro */
 }
 
 .images-gallery {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   margin-bottom: 30px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .gallery-image {
-  width: 150px;
-  height: 150px;
+  width: 200px; /* Aumenté el tamaño de las imágenes */
+  height: 200px;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.3s ease;
 }
 
 .gallery-image:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.2);
 }
 
 .property-details,
 .property-ratings,
 .owner-details {
   margin-bottom: 25px;
-  padding: 10px 20px;
+  padding: 20px;
   background: #fdfdfd;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
 }
 
 .property-details:hover,
 .property-ratings:hover,
 .owner-details:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.map-container {
-  margin-top: 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
 }
 
 h4 {
-  margin-bottom: 10px;
-  color: #333;
-  font-weight: 600;
-  border-left: 4px solid #ff5722;
-  padding-left: 10px;
-}
-
-ul {
-  list-style-type: none;
-  margin-left: 0;
-  padding-left: 20px;
-}
-
-ul li::before {
-  content: '•';
-  color: #ff5722;
-  font-size: 1.2rem;
-  margin-right: 10px;
-  display: inline-block;
+  margin-bottom: 12px;
+  color: #000; /* Cambié el color a negro */
+  font-weight: 700;
+  border-left: 5px solid #ff5722;
+  margin-bottom: 24px;
+  padding-left: 12px;
+  font-size: 135%;
 }
 
 ul li {
-  margin-bottom: 8px;
-  color: #555;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 ul li:hover {
-  color: #333;
-}
-
-
-
-
-.add-comment {
-  margin-top: 20px;
+  color: #222;
+  transform: translateX(5px);
 }
 
 .add-comment textarea {
   width: 100%;
-  height: 100px;
+  height: 120px;
   margin-bottom: 10px;
-  resize: none;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-comment textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
 .add-comment button {
-  padding: 10px 15px;
+  padding: 12px 18px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .add-comment button:hover {
   background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+.comentario {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-left: 4px solid #ff5722;
+}
+
+.comentario p {
+  color: #000; /* Cambié el color de los comentarios a negro */
+}
+
+.map-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.map-container iframe {
+  border-radius: 8px;
+}
+
+.comentario p strong {
+  font-size: 1.1rem; /* Aumenta el tamaño de la fuente para el nombre de usuario */
+  font-weight: bold;
+  margin-right: 1%;
+}
+
+.comentario p .fecha {
+  font-size: 1.1rem; /* Aumenta el tamaño de la fuente para la fecha */
+  color: #777; /* Un color más claro para la fecha */
+}
+
+/* Icono de editar (lápiz) */
+.bi-pencil-square{
+  color: #007bff; /* Azul para el icono de editar */
+  font-size: 1.3rem; /* Aumenta el tamaño del icono */
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  margin-right: 1%;
+}
+
+.bi-pencil-square:hover {
+  color: #0068d6; /* Azul para el icono de editar */
+}
+
+.bi-trash3-fill {
+  color: #dc3545; /* Rojo para el icono de eliminar */
+  font-size: 1.3rem; /* Tamaño inicial del icono */
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer; /* Hace que el icono sea clickeable */
+}
+
+/* Efecto hover sobre el icono de eliminar */
+.bi-trash3-fill:hover {
+  color: #c82333; /* Color ligeramente más oscuro al hacer hover */
 }
