@@ -78,27 +78,30 @@ export class SobreMiComponent implements OnInit {
       alert('Por favor, complete todos los campos requeridos');
       return;
     }
-  
+
     const erroresValidacion = this.usuariosService.validarUsuario(this.usuario, true);
     if (Object.keys(erroresValidacion).length > 0) {
       this.errores = erroresValidacion;
       console.log('Errores de validación:', this.errores);
       return;
     }
-  
+
     this.usuariosService.editarUsuario(this.usuario).subscribe(
       response => {
         console.log('Datos actualizados con éxito', response);
         alert('Cambios guardados correctamente');
-        this.resetEditMode();
-        window.location.reload(); // Recarga la página después de guardar los cambios
+        
+        // Si el correo cambió, hacer logout, eliminar token y redirigir a login
+        alert('Tu correo ha sido actualizado. Por favor, vuelve a iniciar sesión.');
+        this.facadeService.logout(); // Limpia el estado del usuario y el token
+        this.router.navigate(['/login']); // Redirige al login
       },
       error => {
         console.error('Error al guardar los datos', error);
         alert('Ocurrió un error al guardar los cambios.');
       }
     );
-  }  
+  }
 
   refreshUserData() {
     this.ngOnInit(); // Llama de nuevo al ciclo de vida para recargar los datos actualizados

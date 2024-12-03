@@ -12,13 +12,13 @@
                 <i class="bi bi-person"></i> Sobre mí
               </div>
               <!-- Mostrar "Registrar" solo si el rol es "Propietario" -->
-              <div
+              <!-- <div
                 class="dropdown-item"
                 *ngIf="userRole === 'Propietario'"
                 (click)="goToRegistrar()"
               >
                 <i class="bi bi-clipboard"></i> Registrar
-              </div>
+              </div> -->
               <div class="dropdown-item" (click)="cerrarSesion()">
                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
               </div>

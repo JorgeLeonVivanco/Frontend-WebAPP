@@ -68,20 +68,38 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+
+    <!-- Tipo de Propiedad -->
+    <div *ngIf="errors.tipo_propiedad" class="invalid-feedback">{{ errors.tipo_propiedad }}</div>
+    <mat-form-field class="mat-input" appearance="outline">
+      <mat-label>Tipo de propiedad</mat-label>
+      <mat-select [(ngModel)]="propiedad.tipo_propiedad" required>
+        <mat-option value="" disabled>Seleccione una opción</mat-option>
+        <mat-option value="Casa">Casa</mat-option>
+        <mat-option value="Apartamento">Apartamento</mat-option>
+        <mat-option value="studio">Estudio</mat-option>
+      </mat-select>
+    </mat-form-field>
+
       
-      <!-- Precio -->
-      <div *ngIf="errors.precio" class="invalid-feedback">{{ errors.precio }}</div>
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Precio</mat-label>
-        <span matPrefix>$&nbsp;</span>
-        <input
-          matInput
-          [(ngModel)]="propiedad.precio"
-          placeholder="Escribe el precio"
-          (input)="formatPrecio($event)"
-          type="text"
-        />
-      </mat-form-field>
+<!-- Precio -->
+<div *ngIf="errors.precio" class="invalid-feedback">{{ errors.precio }}</div>
+<mat-form-field class="mat-input" appearance="outline" [class.mat-form-field-invalid]="errors.precio">
+  <mat-label>Precio</mat-label>
+  <span matPrefix>$&nbsp;</span>
+  <input
+    matInput
+    [(ngModel)]="propiedad.precio"
+    placeholder="Escribe el precio"
+    type="number" 
+    (input)="validarPrecio()"
+    (blur)="validarPrecio()"
+  />
+  <mat-error *ngIf="errors.precio">{{ errors.precio }}</mat-error>
+</mat-form-field>
+
+
 
       <!-- Teléfono -->
       <div *ngIf="errors.telefono" class="invalid-feedback">{{ errors.telefono }}</div>

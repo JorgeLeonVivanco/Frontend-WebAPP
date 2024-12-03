@@ -4,17 +4,18 @@
     <h3 class="dynamic-title">Propiedades Disponibles</h3>
 
     <!-- Botón de filtros -->
-    <div class="filter-buttons" *ngIf="rol != 'Propietario'">
-      <app-modal></app-modal>
-    </div>
-    
+<!-- Modal para los filtros -->
+<div class="filter-buttons" *ngIf="rol != 'Propietario'">
+  <app-modal (filtersApplied)="onFiltersApplied($event)" (filtersReset)="onFiltersReset()"></app-modal>
+</div>
+
+
     <!-- Tarjetas de propiedades -->
-    <div
-      *ngFor="let propiedad of lista_propiedades"
+    <div *ngFor="let propiedad of propiedades"
       class="property-item"
       (click)="verDetallePropiedad(propiedad.id)"
     >
-      <img
+      <img 
         [src]="propiedad.imagenes[0]"
         alt="Imagen de la propiedad"
         class="property-image"
@@ -25,7 +26,8 @@
         <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>
         <p><strong>Capacidad:</strong> {{ propiedad.capacidad }}</p>
         <p><strong>Precio:</strong> ${{ propiedad.precio }}</p>
-        <p><strong>Estado:</strong> {{ propiedad.estado }}</p>
+        <p><strong>Estado:</strong> {{ propiedad.estados }}</p>
+        <p><strong>Tipo de Propiedad:</strong> {{ propiedad.tipo_propiedad }}</p>
         <p><strong>Servicios:</strong> {{ propiedad.servicios_json }}</p>
       </div>
     </div>

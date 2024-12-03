@@ -25,6 +25,13 @@ export class RegistroPropiedadComponent implements OnInit {
     { value: '5', viewValue: '5 a más' },
   ];
 
+   // Añadir el tipo de propiedad
+   public tipoPropiedad: any[] = [
+    { value: 'Casa', viewValue: 'Casa' },
+    { value: 'Apartamento', viewValue: 'Apartamento' },
+    { value: 'Estudio', viewValue: 'Estudio' },
+  ];
+
   public capacidades: any[] = [
     { value: '2', viewValue: '1-2' },
     { value: '3', viewValue: '3-4' },
@@ -46,7 +53,7 @@ export class RegistroPropiedadComponent implements OnInit {
 
   public servicios: any[] = [
     { value: '1', nombre: 'Agua potable' },
-    { value: '2', nombre: 'Luz eléctrica' },
+    { value: '2', nombre: 'Luz electrica' },
     { value: '3', nombre: 'Internet' },
     { value: '4', nombre: 'Mascotas' },
     { value: '5', nombre: 'Cocina' },
@@ -101,14 +108,22 @@ export class RegistroPropiedadComponent implements OnInit {
 
   registrar(): void {
     // Validar que los campos requeridos no estén vacíos
-    const requiredFields = ['direccion', 'habitaciones', 'capacidad', 'precio', 'sanitarios', 'telefono', 'estados'];
+    const requiredFields = ['direccion', 'habitaciones', 'capacidad', 'precio', 'sanitarios', 'telefono', 'estados', 'tipo_propiedad'];
     const emptyFields = requiredFields.filter((field) => !this.propiedad[field]);
-  
+
     if (emptyFields.length > 0) {
       alert(`Los siguientes campos son obligatorios y están vacíos: ${emptyFields.join(', ')}`);
       return;
     }
-  
+
+    // Validación del precio
+  if (this.propiedad.precio < 1000 || this.propiedad.precio > 10000) {
+    this.errors.precio = 'El precio debe estar entre $1000 y $10000.';
+    return; // Detener la ejecución si el precio no es válido
+  } else {
+    this.errors.precio = null; // Limpiar el mensaje de error
+  }
+
     if (this.editar) {
       // Modo edición
       this.propiedadService.editarPropiedad(this.propiedad).subscribe(
@@ -137,8 +152,8 @@ export class RegistroPropiedadComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
 
   onFileSelected(event: any): void {
     if (event.target.files) {
@@ -147,6 +162,16 @@ export class RegistroPropiedadComponent implements OnInit {
       }
     }
   }
+
+  validarPrecio(): void {
+    // Validación básica del precio (rango entre 1000 y 10000)
+    if (this.propiedad.precio < 1000 || this.propiedad.precio > 10000) {
+      this.errors.precio = 'El precio debe estar entre $1000 y $10000.';
+    } else {
+      this.errors.precio = null; // Limpiar el error si el precio es válido
+    }
+  }
+  
 
   removeImage(index: number): void {
     this.selectedImages.splice(index, 1);
