@@ -1,0 +1,38 @@
+<div class="interface-container">
+  <!-- Lista de propiedades -->
+  <div class="properties-list">
+    <h3 class="dynamic-title">Propiedades Disponibles</h3>
+
+    <!-- Botón de filtros -->
+    <div class="filter-buttons" *ngIf="rol != 'Propietario'">
+      <app-modal></app-modal>
+    </div>
+
+    <!-- Tarjetas de propiedades -->
+    <div
+      *ngFor="let propiedad of lista_propiedades"
+      class="property-item"
+      (click)="verDetallePropiedad(propiedad.id)"
+    >
+      <img
+        [src]="propiedad.imagenes[0]"
+        alt="Imagen de la propiedad"
+        class="property-image"
+        *ngIf="propiedad.imagenes.length > 0"
+      />
+      <div class="property-details">
+        <p><strong>Dirección:</strong> {{ propiedad.direccion }}</p>
+        <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>
+        <p><strong>Capacidad:</strong> {{ propiedad.capacidad }}</p>
+        <p><strong>Precio:</strong> ${{ propiedad.precio }}</p>
+        <p><strong>Estado:</strong> {{ propiedad.estados }}</p>
+        <p><strong>Servicios:</strong> {{ propiedad.servicios_json }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor del mapa -->
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+</div>

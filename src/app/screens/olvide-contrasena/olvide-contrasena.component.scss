@@ -1,0 +1,178 @@
+/* Wrapper principal */
+.wrapper {
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  width: 100vw; /* Ocupa toda la anchura de la ventana */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  background-color: transparent;
+}
+
+/* Fondo */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/assets/images/login.png'); /* Imagen de fondo */
+  background-size: cover; /* Escala la imagen */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repite la imagen */
+  z-index: -1;
+  filter: brightness(0.5) blur(2px); /* Oscurece y desenfoca el fondo ligeramente */
+}
+
+/* Sección del formulario */
+.section-registro {
+  max-width: 500px; /* Ancho máximo del formulario */
+  width: 90%; /* Asegura que el formulario sea responsivo */
+  padding: 2.5rem; /* Espaciado interno */
+  background: rgba(255, 255, 255, 0.95); /* Fondo translúcido */
+  border-radius: 16px; /* Bordes redondeados */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra del formulario */
+  text-align: center; /* Centra el texto dentro del formulario */
+  animation: slideIn 0.8s ease-in-out; /* Animación de entrada */
+}
+
+/* Contenido del formulario */
+.body-registro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espaciado uniforme entre los elementos */
+}
+
+/* Título */
+.title-user {
+  font-size: 24px;
+  font-family: 'Nexa-Bold', sans-serif;
+  color: #231f20;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  letter-spacing: 1px; /* Espaciado entre letras */
+}
+
+/* Campo de entrada */
+.mat-input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  background-color: #f8f8f8; /* Fondo claro */
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+mat-form-field.mat-form-field-appearance-outline {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+mat-form-field.mat-focused .mat-form-field-outline-thick {
+  border-color: #007bff; /* Color de borde azul al enfocar */
+}
+
+mat-form-field.mat-form-field-invalid .mat-form-field-outline-thick {
+  border-color: #dc3545; /* Color de borde rojo para errores */
+}
+
+mat-label {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botones */
+.section-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Espaciado entre los botones */
+}
+
+.btn {
+  width: 48%; /* Botones toman el 48% del ancho del contenedor */
+  height: 48px;
+  border-radius: 12px;
+  font-family: 'Nexa-Bold';
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3); /* Degradado azul */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra del botón */
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #003c82); /* Degradado más oscuro */
+  transform: translateY(-2px); /* Botón sube al pasar el mouse */
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545, #a71d2a); /* Degradado rojo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #a71d2a, #750f1d);
+  transform: translateY(-2px);
+}
+
+/* Volver al inicio de sesión */
+.back-to-login {
+  margin-top: 1.5rem;
+}
+
+.back-to-login a {
+  color: #007bff;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-to-login a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsividad */
+@media only screen and (max-width: 768px) {
+  .section-registro {
+    padding: 2rem;
+    max-width: 90%;
+    border-radius: 12px;
+  }
+
+  .btn {
+    width: 100%; /* Botones ocupan todo el ancho */
+  }
+
+  .section-buttons {
+    flex-direction: column; /* Los botones se apilan verticalmente */
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <div class="background"></div>
+    <div class="section-registro">
+      <div class="body-registro">
+        <!-- Título -->
+        <div class="row mt-3 mb-3">
+          <div class="form-group col-12">
+            <label class="title-user" for="email">Recuperar Contraseña</label>
+          </div>
+        </div>
+  
+        <!-- Correo Electrónico -->
+        <mat-form-field class="mat-input" appearance="outline">
+          <mat-label>Correo Electrónico</mat-label>
+          <input
+            matInput
+            [(ngModel)]="email"
+            placeholder="Escribe tu correo electrónico"
+            type="email"
+            required
+          />
+          <mat-error *ngIf="errorEmail">{{ errorEmail }}</mat-error>
+        </mat-form-field>
+  
+        <!-- Botones -->
+        <div class="section-buttons">
+          <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+          <button class="btn btn-primary" (click)="enviarCorreo()">Enviar Enlace</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
