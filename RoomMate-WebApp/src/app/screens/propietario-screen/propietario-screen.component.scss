@@ -8,6 +8,17 @@
   background-color: #f0f0f0;
 }
 
+.comment-warning {
+  display: flex;
+  align-items: center;
+  color: red; /* Color rojo para el ícono */
+  font-weight: bold;
+}
+
+.comment-count {
+  margin-left: 5px;
+}
+
 /* Left side: Properties list */
 .properties-list {
   width: 60%;
@@ -41,6 +52,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 15px;
+  cursor: pointer;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -215,3 +227,21 @@
     width: 50%; /* Ancho final */
   }
 }
+
+/* Right side: Map container */
+.map-container {
+  width: 40%;
+  background: #e9e9e9;
+  border-left: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;  /* Asegúrate de que ocupe todo el alto disponible */
+}
+
+#map {
+  width: 100%;
+  height: 100%; /* Ajusta el mapa para ocupar todo el espacio disponible */
+  flex-grow: 1; /* Ocupa todo el espacio restante */
+}
+
