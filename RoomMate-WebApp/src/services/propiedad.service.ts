@@ -70,12 +70,12 @@ export class PropiedadService {
   public obtenerListaPropiedades(): Observable<any> {
     const token = this.facadeService.getSessionToken();
     const userId = this.facadeService.getUserId(); // Obtener el ID del usuario autenticado
-  
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
-  
+
     // Agregar el ID del usuario como parámetro en la solicitud
     return this.http.get<any>(
       `${environment.url_api}/lista-propiedades/?user_id=${userId}`,
@@ -92,7 +92,7 @@ export class PropiedadService {
     const url = `${environment.url_api}/propiedades/${idPropiedad}/`;
     return this.http.get<any>(url, { headers });
   }
-  
+
   public eliminarPropiedad(idUser: number): Observable<any> {
     const token = this.facadeService.getSessionToken();
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + token });
@@ -104,4 +104,77 @@ export class PropiedadService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + token });
     return this.http.put<any>(`${environment.url_api}/propiedades-edit/`, data, { headers });
   }
+
+  // Método para agregar un comentario
+  public agregarComentario(idPropiedad: number, comentario: any): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const clienteNombre = this.facadeService.getUserCompleteName(); // Obtener el nombre del cliente
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    const comentarioData = {
+      usuario: clienteNombre || 'Usuario sin nombre',
+      fecha: new Date().toISOString(),
+      texto: comentario.texto.trim(),
+    };
+
+    return this.http.post<any>(
+      `${environment.url_api}/propiedades/${idPropiedad}/comentarios/`,
+      { comentario: comentarioData },
+      { headers }
+    );
+  }
+
+  public editarComentario(idPropiedad: number, comentario: any): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const comentarioData = { texto: comentario.texto.trim() }; // El texto del comentario editado
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.put<any>(
+      `${environment.url_api}/propiedades/${idPropiedad}/comentarios/editar/`,
+      { comentario: comentarioData },
+      { headers }
+    );
+  }
+
+  // Método para eliminar un comentario basado en el nombre del usuario
+  public eliminarComentario(idPropiedad: number, usuario: string): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.delete<any>(
+      `${environment.url_api}/propiedades/${idPropiedad}/comentarios/eliminar/${usuario}/`,
+      { headers }
+    );
+  }
+
+   // Método para obtener direcciones sugeridas desde Nominatim
+   public obtenerSugerenciasDireccion(query: string): Observable<any[]> {
+    const apiUrl = 'https://nominatim.openstreetmap.org/search';
+    const params = {
+      q: query,
+      format: 'json',
+      addressdetails: '1',
+      limit: '5' // Limitar a 5 resultados
+    };
+    return this.http.get<any[]>(apiUrl, { params });
+  }
+
+
 }
+
+
+
+
+
+
+///ssss
