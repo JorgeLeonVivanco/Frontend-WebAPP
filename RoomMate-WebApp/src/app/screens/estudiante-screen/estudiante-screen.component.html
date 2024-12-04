@@ -15,12 +15,13 @@
       class="property-item"
       (click)="verDetallePropiedad(propiedad.id)"
     >
-      <img 
-        [src]="propiedad.imagenes[0]"
-        alt="Imagen de la propiedad"
-        class="property-image"
-        *ngIf="propiedad.imagenes.length > 0"
-      />
+    <img 
+    [src]="propiedad.imagenes[propiedad.imagenes.length - 1]"
+    alt="Última imagen de la propiedad"
+    class="property-image"
+    *ngIf="propiedad.imagenes && propiedad.imagenes.length > 0"
+  />
+  
       <div class="property-details">
         <p><strong>Dirección:</strong> {{ propiedad.direccion }}</p>
         <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs'; // Importar 'of' para retornar un Observable vacío
 import { catchError } from 'rxjs/operators'; // Importar 'catchError' para manejar errores
-import { FacadeService } from './facade.service'; // Servicio para obtener el token y otros datos
+import { FacadeService } from './facade.service'; // Servicio para manejar la sesión
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -33,12 +33,11 @@ export class FilterService {
       params = params.set('tipo_propiedad', filters.tipo_propiedad);
     }
 
-    // Si hay servicios seleccionados, agregarlos al parámetro 'servicios'
-    if (filters.servicios && filters.servicios.length > 0) {
-      // Convertir el arreglo de servicios en una cadena separada por comas
-      const serviciosStr = filters.servicios.join(',');
-      params = params.set('servicios', serviciosStr);
-    }
+// Si hay servicios seleccionados, agregarlos al parámetro 'servicios'
+if (filters.servicios && filters.servicios.length > 0) {
+  const serviciosStr = filters.servicios.join(','); // Convertir el array de servicios a string separado por comas
+  params = params.set('servicios_json', serviciosStr);
+}
 
     // Configurar los encabezados con el token de autorización
     const headers = new HttpHeaders({

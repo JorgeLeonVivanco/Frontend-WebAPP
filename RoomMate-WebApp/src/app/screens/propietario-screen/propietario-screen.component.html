@@ -3,8 +3,8 @@
         <h3 class="dynamic-title">Propiedades Registradas</h3>
         <div *ngFor="let propiedad of lista_propiedades" class="property-item">
           <img
-            [src]="propiedad.imagenes[0]"
-            alt="Imagen de la propiedad"
+            [src]="propiedad.imagenes[propiedad.imagenes.length - 1]"
+            alt="Última imagen de la propiedad"
             class="property-image"
             *ngIf="propiedad.imagenes.length > 0"
           />

@@ -17,7 +17,7 @@ export class EstudianteScreenComponent implements OnInit {
     precio_min: 1000, // Valor predeterminado para el precio mínimo
     precio_max: 10000, // Valor predeterminado para el precio máximo
     tipo_propiedad: '',
-    servicios: [] as string[] // Explicitamente definimos servicios como un arreglo de cadenas
+    servicios_json: [] as string[] // Explicitamente definimos servicios como un arreglo de cadenas
   };
   isModalOpen = false;
 
@@ -118,7 +118,7 @@ export class EstudianteScreenComponent implements OnInit {
       precio_min: 1000,  // Precio mínimo por defecto
       precio_max: 10000, // Precio máximo por defecto
       tipo_propiedad: '', // Tipo de propiedad vacío
-      servicios: [] // No servicios seleccionados
+      servicios_json: [] // No servicios seleccionados
     };
     this.obtenerPropiedades();  // Llamar para obtener todas las propiedades sin filtros
   }

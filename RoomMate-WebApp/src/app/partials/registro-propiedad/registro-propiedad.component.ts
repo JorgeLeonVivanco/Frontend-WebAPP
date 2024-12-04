@@ -124,36 +124,24 @@ export class RegistroPropiedadComponent implements OnInit {
     this.errors.precio = null; // Limpiar el mensaje de error
   }
 
-    if (this.editar) {
-      // Modo edición
-      this.propiedadService.editarPropiedad(this.propiedad).subscribe(
-        (response) => {
-          console.log('Propiedad actualizada correctamente:', response);
-          alert('Propiedad actualizada correctamente.');
-          this.router.navigate(['/home']); // Redirige al home
-        },
-        (error) => {
-          console.error('Error al actualizar la propiedad:', error);
-          alert('No se pudo actualizar la propiedad.');
-        }
-      );
-    } else {
-      // Modo registro
-      this.propiedadService.registrarPropiedad(this.propiedad, this.selectedImages).subscribe(
-        (response) => {
-          console.log('Propiedad registrada correctamente:', response);
-          alert('Propiedad registrada correctamente.');
-          this.router.navigate(['/home']); // Redirige al home después del registro
-        },
-        (error) => {
-          console.error('Error al registrar la propiedad:', error);
-          alert('No se pudo registrar la propiedad.');
-        }
-      );
-    }
+  if (this.editar && this.idPropiedad !== null) {
+    // Modo edición
+    const images: File[] = this.selectedImages; // Asumimos que tienes las nuevas imágenes seleccionadas
+    this.propiedadService.editarPropiedad(this.idPropiedad, this.propiedad, images).subscribe(
+      (response) => {
+        console.log('Propiedad actualizada correctamente:', response);
+        alert('Propiedad actualizada correctamente.');
+        this.router.navigate(['/home']); // Redirige al home
+      },
+      (error) => {
+        console.error('Error al actualizar la propiedad:', error);
+        alert('No se pudo actualizar la propiedad.');
+      }
+    );
+  } else {
+    console.error('Error: El ID de la propiedad es inválido o no se encuentra.');
   }
-
-
+}  
 
   onFileSelected(event: any): void {
     if (event.target.files) {
@@ -172,11 +160,6 @@ export class RegistroPropiedadComponent implements OnInit {
     }
   }
   
-
-  removeImage(index: number): void {
-    this.selectedImages.splice(index, 1);
-  }
-
   removeExistingImage(index: number): void {
     this.existingImages.splice(index, 1);
   }
@@ -189,6 +172,7 @@ export class RegistroPropiedadComponent implements OnInit {
     this.location.back();
   }
 
+  
   formatPrecio(event: any): void {
     const input = event.target.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
     event.target.value = input; // Actualiza el valor mostrado
@@ -222,4 +206,25 @@ export class RegistroPropiedadComponent implements OnInit {
 
     this.propiedad.telefono = input.value;
   }
+  
+    // Método para eliminar una imagen seleccionada
+    removeImage(index: number): void {
+      this.selectedImages.splice(index, 1);
+    }
+  
+    // Método para cancelar la edición y volver
+    cancelar(): void {
+      this.location.back();
+    }
+
+    // Método para seleccionar imágenes
+  onImageSelected(event: any): void {
+    const files: FileList = event.target.files;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        this.selectedImages.push(files[i]);
+      }
+    }
+  }
+
 }
