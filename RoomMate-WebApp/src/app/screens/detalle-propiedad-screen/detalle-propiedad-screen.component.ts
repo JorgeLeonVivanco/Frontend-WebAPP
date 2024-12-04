@@ -17,6 +17,8 @@ export class DetallePropiedadScreenComponent implements OnInit {
 
   public lat: number = 19.0337; // Coordenadas de inicio (centro del mapa)
   public lng: number = -98.2227;
+  public calificacionActual: number = 0; // Calificación seleccionada por el usuario
+  public stars: number[] = [0, 1, 2, 3, 4]; // Representa 5 estrellas
 
   public propiedadSeleccionada: any = {
     direccion: '',
@@ -52,66 +54,71 @@ export class DetallePropiedadScreenComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(): void {
-    this.initMap(); // Inicializa el mapa después de que la vista se haya cargado
-  }
-
   initMap(): void {
-    // Asegúrate de que las coordenadas sean las de la propiedad seleccionada
-    const map = L.map('map').setView([this.lat, this.lng], 16); // Coordenadas y nivel de zoom
+    // Centrar el mapa en las coordenadas de la propiedad seleccionada
+    if (this.propiedadSeleccionada.latitud && this.propiedadSeleccionada.longitud) {
+      this.lat = this.propiedadSeleccionada.latitud;
+      this.lng = this.propiedadSeleccionada.longitud;
+    }
 
-    // Cargar el mapa con OpenStreetMap
+    // Inicializar el mapa con las coordenadas de la propiedad
+    const map = L.map('map').setView([this.lat, this.lng], 16);
+
+    // Añadir capa base de OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    // Verifica que existan las coordenadas antes de agregar el marcador
+    // Añadir marcador para la propiedad seleccionada
+    this.agregarMarcador(map, this.lat, this.lng);
+  }
+
+  agregarMarcador(map: L.Map, lat: number, lng: number): void {
+    // Crear un icono personalizado
+    const icono = L.divIcon({
+      className: 'custom-icon',
+      html: `<i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #007bff;"></i>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+      popupAnchor: [0, -30],
+    });
+
+    // Crear un marcador y añadirlo al mapa
+    const marcador = L.marker([lat, lng], { icon: icono }).addTo(map);
+
+    // Crear contenido del popup
+    const popupContent = `
+      <strong>Dirección:</strong> ${this.propiedadSeleccionada.direccion}<br>
+      <strong>Precio: $</strong> ${this.propiedadSeleccionada.precio}<br>
+    `;
+    marcador.bindPopup(popupContent).openPopup();
+  }
+
+  ngAfterViewInit(): void {
     if (this.propiedadSeleccionada.latitud && this.propiedadSeleccionada.longitud) {
-      map.setView([this.propiedadSeleccionada.latitud, this.propiedadSeleccionada.longitud], 16); // Centra el mapa en la propiedad
-
-      // Agregar un marcador en las coordenadas de la propiedad
-      const icono = L.divIcon({
-        className: 'custom-icon',
-        html: `<i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #007bff;"></i>`,
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -30],
-      });
-
-      // Crear el marcador y asignarle las coordenadas
-      const marcador = L.marker([this.propiedadSeleccionada.latitud, this.propiedadSeleccionada.longitud], { icon: icono }).addTo(map);
-
-      // Crear un popup con la información de la propiedad
-      const popupContent = `
-        <strong>Dirección:</strong> ${this.propiedadSeleccionada.direccion}<br>
-      `;
-      marcador.bindPopup(popupContent);
+      this.initMap();
     }
   }
+
+
 
   obtenerDetallePropiedad(id: number): void {
     this.propiedadService.getPropiedadByID(id).subscribe(
       (response) => {
-        const serviciosJson = response.servicios_json;
-
         this.propiedadSeleccionada = {
           ...response,
-          servicios: serviciosJson
-            ? JSON.parse(serviciosJson.replace(/\\"/g, '"'))
-            : [],
+          servicios: response.servicios_json ? JSON.parse(response.servicios_json) : [],
           comentarios: response.comentarios || [],
           imagenes: response.imagenes || [],
-          propietario: response.propietario || {
-            nombre: 'Sin información',
-            correo: 'No especificado',
-            telefono: 'No especificado',
-          },
-          latitud: response.latitud, // Asegúrate de que las coordenadas estén disponibles
-          longitud: response.longitud, // Asegúrate de que las coordenadas estén disponibles
+          propietario: response.propietario || {},
         };
 
-        console.log('Propiedad cargada:', this.propiedadSeleccionada);
-        this.initMap(); // Vuelve a inicializar el mapa después de obtener los datos de la propiedad
+        // Actualizar coordenadas para el mapa
+        this.lat = this.propiedadSeleccionada.latitud || this.lat;
+        this.lng = this.propiedadSeleccionada.longitud || this.lng;
+
+        // Inicializar el mapa
+        this.initMap();
       },
       (error) => {
         console.error('Error al cargar la propiedad seleccionada:', error);
@@ -119,6 +126,9 @@ export class DetallePropiedadScreenComponent implements OnInit {
       }
     );
   }
+
+
+
 
   public nuevoComentario: any = {
     usuario: '',
@@ -189,6 +199,50 @@ export class DetallePropiedadScreenComponent implements OnInit {
       }
     });
   }
+
+  calificarPropiedad(estrellas: number): void {
+    // Actualizamos la propiedad seleccionada localmente
+    this.propiedadSeleccionada.calificacion = estrellas;
+
+    // Creamos el objeto a enviar al backend
+    const data = {
+      id: this.propiedadSeleccionada.id,
+      direccion: this.propiedadSeleccionada.direccion, // Dirección actualizada
+      habitaciones: this.propiedadSeleccionada.habitaciones,
+      capacidad: this.propiedadSeleccionada.precio,
+      precio: this.propiedadSeleccionada.precio,
+      servicios_json: this.propiedadSeleccionada.servicios_json,
+      sanitarios: this.propiedadSeleccionada.sanitarios,
+      telefono: this.propiedadSeleccionada.telefono,
+      estados: this.propiedadSeleccionada.estados,
+      imagenes: this.propiedadSeleccionada.imagenes,
+      calificacion: estrellas,
+    };
+
+    // Llamamos al servicio para editar la propiedad
+    this.propiedadService.editarPropiedad(data).subscribe(
+      (response) => {
+        console.log('Calificación actualizada con éxito:', response);
+        alert('¡Gracias por tu calificación!');
+      },
+      (error) => {
+        console.error('Error al actualizar la calificación:', error);
+        alert('No se pudo actualizar la calificación. Intenta nuevamente.');
+      }
+    );
+  }
+
+  // Método para resaltar las estrellas al pasar el mouse
+  hoverEstrella(calificacion: number): void {
+    this.calificacionActual = calificacion;
+  }
+
+  // Método para restablecer las estrellas si el usuario no hace clic
+  resetEstrellas(): void {
+    this.calificacionActual = 0;
+  }
+
+
 
 
 }
