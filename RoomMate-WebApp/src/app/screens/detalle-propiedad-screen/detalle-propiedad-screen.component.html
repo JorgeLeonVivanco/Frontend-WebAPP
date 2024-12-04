@@ -2,7 +2,6 @@
 
 <div class="property-detail-container">
   <h3>{{ propiedadSeleccionada.direccion || 'Sin dirección especificada' }}</h3>
-  <p><strong>Estado:</strong> {{ propiedadSeleccionada.estado || 'Sin estado especificado' }}</p>
 
   <!-- Imágenes -->
   <div class="images-gallery">
@@ -25,34 +24,94 @@
     </ng-template>
   </div>
 
-  <!-- Calificaciones -->
+  <!-- Calificaciones y Comentarios -->
   <div class="property-ratings">
     <h4>Calificaciones y Comentarios</h4>
-    <p *ngIf="propiedadSeleccionada.comentarios.length > 0">
-      <strong>{{ propiedadSeleccionada.calificacion || 'Sin calificación' }}</strong> -
-      {{ propiedadSeleccionada.comentarios.length }} reviews
+
+    <!-- Mostrar comentarios -->
+<div *ngIf="propiedadSeleccionada?.comentarios?.length > 0; else noComentarios">
+  <div *ngFor="let comentario of propiedadSeleccionada.comentarios" class="comentario">
+    <p>
+      <strong>{{ comentario.usuario || 'Usuario desconocido' }}</strong>
+      <span class="fecha">{{ comentario.fecha | date: 'short' }}</span>
     </p>
-    <div *ngFor="let comentario of propiedadSeleccionada.comentarios">
-      <p><strong>{{ comentario.usuario }}</strong> ({{ comentario.fecha || 'Fecha no especificada' }})</p>
-      <p>{{ comentario.texto }}</p>
+    <p>{{ comentario.texto || 'Sin texto' }}</p>
+
+    <!-- Formulario para editar el comentario (si el usuario es el propietario del comentario) -->
+    <div *ngIf="comentario.usuario === nombreUsuario" class="edit-comment">
+      <span (click)="onEditarComentario(comentario)" class="text-warning" aria-label="Editar comentario">
+        <i class="bi bi-pencil-square"></i>
+      </span>
+
+      <!-- Icono de basura para eliminar comentario -->
+      <span (click)="eliminarComentario()" class="text-danger" aria-label="Eliminar comentario">
+        <i class="bi bi-trash3-fill"></i>
+      </span>
+     </div>
+  </div>
+</div>
+
+<!-- Plantilla para mostrar si no hay comentarios -->
+<ng-template #noComentarios>
+  <p>No hay comentarios disponibles para esta propiedad.</p>
+</ng-template>
+
+<!-- Formulario para editar un comentario -->
+<div *ngIf="comentarioEditando" class="edit-comment-form">
+  <textarea [(ngModel)]="comentarioEditando.texto" rows="3" class="form-control"></textarea>
+  <button (click)="guardarComentario()" class="btn btn-success mt-2">Guardar comentario</button>
+  <button (click)="cancelarEdicion()" class="btn btn-secondary mt-2">Cancelar</button>
+</div>
+
+
+
+    <!-- Plantilla para mostrar si no hay comentarios -->
+    <ng-template #noComentarios>
+      <p>No hay comentarios disponibles para esta propiedad.</p>
+    </ng-template>
+
+    <!-- Formulario para agregar un nuevo comentario -->
+    <div class="add-comment" *ngIf="rol !== 'Propietario'">
+      <h5>Agregar un comentario</h5>
+      <textarea
+        [(ngModel)]="nuevoComentario.texto"
+        placeholder="Escribe tu comentario aquí..."
+        rows="3"
+        class="form-control">
+      </textarea>
+      <button (click)="agregarComentario()" class="btn btn-primary mt-2">Agregar comentario</button>
     </div>
-    <p *ngIf="propiedadSeleccionada.comentarios.length === 0">No hay comentarios disponibles.</p>
   </div>
 
-  <!-- Ubicación -->
-  <div class="map-container">
-    <h4>Ubicación</h4>
-    <iframe
-      *ngIf="propiedadSeleccionada.mapaUrl"
-      [src]="propiedadSeleccionada.mapaUrl"
-      width="100%"
-      height="300"
-      style="border: 0;"
-      allowfullscreen=""
-      loading="lazy"
-    ></iframe>
-    <p *ngIf="!propiedadSeleccionada.mapaUrl">No hay ubicación disponible.</p>
+  <!-- Calificaciones -->
+<div class="property-rating">
+  <h4>Califica esta propiedad</h4>
+  <div class="rating-stars">
+    <i
+      *ngFor="let star of stars; let i = index"
+      class="bi"
+      [class.bi-star-fill]="i < calificacionActual"
+      [class.bi-star]="i >= calificacionActual"
+      (click)="calificarPropiedad(i + 1)"
+      (mouseover)="hoverEstrella(i + 1)"
+      (mouseleave)="resetEstrellas()"
+    ></i>
   </div>
+  <p *ngIf="calificacionActual > 0">
+    Tu calificación: {{ calificacionActual }} estrella{{ calificacionActual > 1 ? 's' : '' }}
+  </p>
+</div>
+
+
+  <!-- Ubicación -->
+  <div>
+    <h4>Ubicación</h4>
+      <div class="map-container">
+        <!-- En el archivo propietario-screen.component.html -->
+        <div id="map"></div>
+      </div>
+  </div>
+  <br>
 
   <!-- Información del propietario -->
   <div class="owner-details">
