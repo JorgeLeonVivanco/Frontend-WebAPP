@@ -35,7 +35,8 @@ import { RegistroPropiedadComponent } from './partials/registro-propiedad/regist
 import { DetallePropiedadScreenComponent } from './screens/detalle-propiedad-screen/detalle-propiedad-screen.component';
 import { OlvideContrasenaComponent } from './screens/olvide-contrasena/olvide-contrasena.component';
 import { ModalComponent } from './partials/modal-filter/modal-filter.component';
-import { FooterComponent } from './partials/footer/footer.component'; // Ajusta según tu estructura
+import { FooterComponent } from './partials/footer/footer.component';
+import { PiePaginaComponent } from './partials/pie-pagina/pie-pagina.component'; // Ajusta según tu estructura
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FooterComponent } from './partials/footer/footer.component'; // Ajusta 
     DetallePropiedadScreenComponent,
     OlvideContrasenaComponent,
     ModalComponent,
-    FooterComponent
+    FooterComponent,
+    PiePaginaComponent
   ],
   imports: [
     BrowserModule,

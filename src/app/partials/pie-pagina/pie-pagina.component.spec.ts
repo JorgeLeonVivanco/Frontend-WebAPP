@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FooterComponent } from './footer.component';
+import { PiePaginaComponent } from './pie-pagina.component';
 
-describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('PiePaginaComponent', () => {
+  let component: PiePaginaComponent;
+  let fixture: ComponentFixture<PiePaginaComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FooterComponent]
+      declarations: [PiePaginaComponent]
     });
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(PiePaginaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
