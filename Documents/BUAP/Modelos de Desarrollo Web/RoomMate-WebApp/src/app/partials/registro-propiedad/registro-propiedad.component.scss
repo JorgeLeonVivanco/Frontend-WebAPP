@@ -1,0 +1,237 @@
+/* Wrapper principal */
+.wrapper {
+  height: 100vh; /* Altura completa de la pantalla */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: transparent;
+  position: relative;
+  overflow-y: auto; /* Solo habilitar scroll vertical */
+  overflow-x: hidden; /* Ocultar scroll horizontal */
+}
+
+/* Fondo con imagen */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/assets/images/login.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  filter: brightness(0.8); /* Oscurecer el fondo para mejor contraste */
+  pointer-events: none; /* Evitar interferencia del fondo */
+}
+
+/* Sección del formulario */
+.section-registro {
+  width: 100%;
+  max-width: 600px; /* Limitar el ancho máximo */
+  height: auto; /* Altura dinámica según el contenido */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95); /* Fondo translúcido */
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Sombra suave */
+  backdrop-filter: blur(10px); /* Difuminado de fondo */
+  margin: 0 auto; /* Centrar en el contenedor */
+  overflow-y: auto; /* Habilitar scroll vertical dentro del formulario */
+}
+
+/* Contenido del formulario */
+.body-registro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espaciado uniforme entre elementos */
+}
+
+/* Título */
+.title-user {
+  font-size: 28px;
+  font-family: 'Nexa-Bold', sans-serif;
+  color: #231F20;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+/* Campos de entrada */
+.mat-input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field.mat-form-field-appearance-outline {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 0.5rem; /* Ajustar espacio interno */
+}
+
+mat-form-field.mat-focused .mat-form-field-outline-thick {
+  border-color: #007bff;
+}
+
+mat-form-field.mat-form-field-invalid .mat-form-field-outline-thick {
+  border-color: #dc3545; /* Color rojo para campos inválidos */
+}
+
+/* Estilo para los select (mat-select) */
+mat-select {
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+mat-select:hover {
+  background-color: #e9e9e9;
+}
+
+/* Botones */
+.section-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn {
+  width: 208px;
+  height: 48px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Nexa-Bold';
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #0f0203;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #007bff;
+  transform: scale(1.05); /* Ligeramente más grande al pasar el mouse */
+}
+
+.btn-primary:active {
+  transform: scale(0.95); /* Reducir ligeramente al hacer clic */
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+.btn-danger:active {
+  transform: scale(0.95);
+}
+
+/* Icono del ojo (mostrar/ocultar contraseña) */
+.eye-icon {
+  cursor: pointer;
+  color: #7d6c6c;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.eye-icon:hover {
+  color: #495057;
+}
+
+/* Mensajes de error */
+.invalid-feedback {
+  display: block;
+  font-size: 0.85rem;
+  color: #dc3545;
+}
+
+/* Responsividad */
+@media only screen and (max-width: 768px) {
+  .section-registro {
+    padding: 1.5rem;
+    max-width: 90%; /* Reducir ancho en pantallas pequeñas */
+    border-radius: 12px;
+  }
+
+  .btn {
+    width: 100%; /* Botones de ancho completo */
+  }
+
+  .section-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Contenedor de sugerencias */
+.sugerencias {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  max-height: 200px; /* Limitar altura máxima */
+  overflow-y: auto; /* Habilitar scroll si excede la altura */
+  padding: 8px;
+  width: 100%;
+}
+
+/* Lista de sugerencias */
+.sugerencias ul {
+  list-style: none; /* Eliminar viñetas */
+  margin: 0;
+  padding: 0;
+}
+
+/* Elementos individuales de la lista */
+.sugerencias li {
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid #e0e0e0; /* Línea divisoria */
+}
+
+/* Último elemento sin borde */
+.sugerencias li:last-child {
+  border-bottom: none;
+}
+
+/* Hover y selección */
+.sugerencias li:hover {
+  background-color: #f0f8ff;
+  color: #007bff; /* Resaltar texto */
+}
+
+#direccion-input-field {
+  margin-bottom: 0; /* Elimina el margen inferior predeterminado */
+  position: relative; /* Asegúrate de que pueda ser posicionado si es necesario */
+  top: -5px; /* Ajusta la posición vertical */
+}
+
+

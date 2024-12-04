@@ -1,0 +1,126 @@
+<app-navbar></app-navbar>
+<div class="container">
+<div class="header">
+<br>
+<h1>SOBRE MÍ</h1>
+</div>
+
+  <div class="content">
+<!-- Datos personales -->
+<div class="personal-data">
+<h2>Datos personales</h2>
+
+      <!-- Campo: Nombre completo -->
+<div class="field">
+<label for="first_name">Nombre</label>
+<div class="input-group">
+<input type="text" [(ngModel)]="usuario.first_name" [readonly]="!editMode.first_name" id="first_name" required>
+<button class="btn btn-outline-secondary" (click)="toggleEdit('first_name')">
+<i class="bi bi-pencil"></i>
+</button>
+</div>
+</div>
+
+      <!-- Campo: Apellidos -->
+<div class="field">
+<label for="last_name">Apellidos</label>
+<div class="input-group">
+<input type="text" [(ngModel)]="usuario.last_name" [readonly]="!editMode.last_name" id="last_name" required>
+<button class="btn btn-outline-secondary" (click)="toggleEdit('last_name')">
+<i class="bi bi-pencil"></i>
+</button>
+</div>
+</div>
+
+      <!-- Campo: Correo electrónico -->
+<div class="field">
+<label for="email">Correo electrónico</label>
+<div class="input-group">
+<input type="email" [(ngModel)]="usuario.email" [readonly]="!editMode.email" id="email" required>
+<button class="btn btn-outline-secondary" (click)="toggleEdit('email')">
+<i class="bi bi-pencil"></i>
+</button>
+</div>
+</div>
+
+<!-- Campo: Contraseña -->
+<div class="field">
+      <label for="password">Contraseña</label>
+      <div class="input-group">
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          [(ngModel)]="usuario.password" 
+          [readonly]="!editMode.password" 
+          id="password" 
+          required>
+        <button 
+          class="btn btn-outline-secondary" 
+          (click)="toggleEdit('password')">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button 
+          class="btn btn-outline-secondary" 
+          (click)="togglePasswordVisibility()">
+          <i [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Campo: Confirmar contraseña -->
+    <div class="field">
+      <label for="confirm_password">Confirmar contraseña</label>
+      <div class="input-group">
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          [(ngModel)]="usuario.confirmar_password" 
+          [readonly]="!editMode.password" 
+          id="confirm_password" 
+          required>
+        <button 
+          class="btn btn-outline-secondary" 
+          (click)="toggleEdit('password')">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button 
+          class="btn btn-outline-secondary" 
+          (click)="togglePasswordVisibility()">
+          <i [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+        </button>
+      </div>
+    </div>
+    
+
+      <!-- Campo: Teléfono -->
+<div class="field">
+<label for="phone">Teléfono</label>
+<div class="input-group">
+<input type="tel" [(ngModel)]="usuario.telefono" [readonly]="!editMode.telefono" id="phone" required pattern="[0-9]{10}">
+<button class="btn btn-outline-secondary" (click)="toggleEdit('phone')">
+<i class="bi bi-pencil"></i>
+</button>
+</div>
+</div>
+
+      <!-- Campo: Rol -->
+<div class="field">
+<label for="role">Rol</label>
+<div class="input-group">
+<input type="text" [(ngModel)]="usuario.rol" id="role" [readonly]="true" required>
+</div>
+</div>
+
+<div class="action-buttons">
+      <!-- Botón Guardar cambios -->
+      <div class="save-button">
+        <button class="btn btn-primary" (click)="saveChanges()">Guardar cambios</button>
+      </div>
+      <!-- Botón Eliminar cuenta -->
+      <div class="delete-button">
+        <button class="btn btn-danger" (click)="eliminarCuenta()">Eliminar cuenta</button>
+      </div>
+      <!-- Botón Cancelar -->
+      <div class="cancel-button">
+        <button class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+      </div>
+</div>
+    

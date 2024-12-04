@@ -1,0 +1,72 @@
+.footer {
+  background-color: #de3151;
+  color: white;
+  padding: 2rem 0;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-top: 20px;
+    letter-spacing: 0.5px;
+    text-align: center; /* Centrar el texto */
+  }
+
+  /* Estilo para los iconos de redes sociales */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Espacio entre los iconos */
+    margin-bottom: 20px; /* Separación entre iconos y texto */
+  }
+
+  .social-icon {
+    font-size: 40px; /* Tamaño de los iconos */
+    color: white;
+    transition: transform 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+
+    &:hover {
+      transform: rotate(360deg); /* Rotación de los iconos */
+      color: #ff8fa3; /* Cambio de color al pasar el cursor */
+      opacity: 0.8; /* Efecto de opacidad */
+    }
+  }
+
+  /* Añadir sombra a los iconos en hover */
+  .social-icon:hover {
+    text-shadow: 0px 0px 10px rgba(155, 151, 151, 0.2);
+  }
+
+  /* Estilo para el favicon */
+  .footer-favicon {
+    margin-top: 20px;
+
+    .favicon-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .social-icons {
+    gap: 20px;
+  }
+
+  .social-icon {
+    font-size: 36px;
+  }
+
+  p {
+    font-size: 0.875rem; /* Reducir tamaño del texto en pantallas pequeñas */
+  }
+
+  .favicon-img {
+    width: 30px;
+    height: 30px;
+  }
+}

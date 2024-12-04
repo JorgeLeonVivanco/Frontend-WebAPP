@@ -1,0 +1,215 @@
+.property-detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-detail-container:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+h3 {
+  text-align: center;
+  color: #ff5722;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+.images-gallery {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gallery-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.property-details,
+.property-ratings,
+.owner-details {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.property-details:hover,
+.property-ratings:hover,
+.owner-details:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.map-container {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+  border-left: 4px solid #ff5722;
+  padding-left: 12px;
+}
+
+ul {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 20px;
+}
+
+ul li::before {
+  content: '•';
+  color: #ff5722;
+  font-size: 1.3rem;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+ul li {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+ul li:hover {
+  color: #333;
+}
+
+.add-comment {
+  margin-top: 20px;
+}
+
+.add-comment textarea {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 12px;
+  resize: none;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.add-comment textarea:focus {
+  border-color: #ff5722;
+  outline: none;
+}
+
+.add-comment button {
+  padding: 12px 20px;
+  background-color: #218838;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-comment button:hover {
+  background-color: #218838;
+}
+
+.edit-comment-form textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 12px;
+  resize: none;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.edit-comment-form textarea:focus {
+  border-color: #ff5722;
+  outline: none;
+}
+
+.edit-comment-form button {
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-comment-form button:hover {
+  background-color: #218838;
+}
+
+.edit-comment-form .btn-secondary {
+  background-color: #6c757d;
+}
+
+.edit-comment-form .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos para los botones de eliminar y editar con iconos */
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button i {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+  margin-right: 10px; /* Agregar espacio entre los iconos */
+}
+
+
+button i:hover {
+  transform: scale(1);
+}
+
+/* Estilos específicos para el botón de eliminar */
+button.eliminar {
+  color: #dc3545; /* Rojo */
+}
+
+button.eliminar:hover i {
+  color: #c82333; /* Rojo oscuro */
+}
+
+/* Estilos específicos para el botón de editar */
+button.editar {
+  color: #007bff; /* Azul */
+}
+
+button.editar:hover i {
+  color: #0056b3; /* Azul oscuro */
+}

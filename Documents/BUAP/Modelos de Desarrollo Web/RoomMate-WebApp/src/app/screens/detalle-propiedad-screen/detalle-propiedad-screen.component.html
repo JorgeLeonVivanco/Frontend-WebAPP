@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+
+<div class="property-detail-container container my-5 p-4 bg-light">
+  <!-- Título de la propiedad -->
+  <h3 class="text-center">{{ propiedadSeleccionada.direccion || 'Sin dirección especificada' }}</h3>
+
+  <!-- Imágenes -->
+  <div class="images-gallery my-4">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let imagen of propiedadSeleccionada.imagenes">
+        <img
+          [src]="imagen"
+          alt="Imagen de la propiedad"
+          class="gallery-image img-fluid rounded shadow-sm"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Detalles -->
+  <div class="property-details my-4">
+    <h4 class="text-muted">Servicios</h4>
+    <ul *ngIf="propiedadSeleccionada.servicios.length > 0; else noServicios" class="list-group">
+      <li *ngFor="let servicio of propiedadSeleccionada.servicios" class="list-group-item">{{ servicio }}</li>
+    </ul>
+    <ng-template #noServicios>
+      <p class="text-muted">No se especificaron servicios.</p>
+    </ng-template>
+  </div>
+
+  <!-- Calificaciones y Comentarios -->
+  <div class="property-ratings my-4">
+    <h4 class="text-muted">Calificaciones y Comentarios</h4>
+
+    <!-- Mostrar comentarios -->
+    <div *ngIf="propiedadSeleccionada.comentarios.length > 0; else noComentarios">
+      <div *ngFor="let comentario of propiedadSeleccionada.comentarios" class="comentario mb-3 p-3 bg-light shadow-sm">
+        <p>
+          <strong class="text-primary">{{ comentario.usuario || 'Usuario desconocido' }}</strong>
+          <span class="fecha text-muted">{{ comentario.fecha | date: 'short' }}</span>
+        </p>
+        <p>{{ comentario.texto || 'Sin texto' }}</p>
+
+        <!-- Botones de eliminar y editar -->
+        <div class="d-flex justify-content-end">
+          <!-- Botón de editar (solo visible si el rol no es 'Propietario') -->
+          <button *ngIf="rol !== 'Propietario'" class="editar" (click)="onEditarComentario(comentario)">
+            <i class="bi bi-pencil"></i> <!-- Icono de editar -->
+          </button>
+
+          <!-- Botón de eliminar (solo visible si el rol no es 'Propietario') -->
+          <button *ngIf="rol !== 'Propietario'" class="eliminar" (click)="eliminarComentario(comentario)">
+            <i class="bi bi-trash"></i> <!-- Icono de eliminar -->
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plantilla para mostrar si no hay comentarios -->
+    <ng-template #noComentarios>
+      <p class="text-muted">No hay comentarios disponibles para esta propiedad.</p>
+    </ng-template>
+
+    <!-- Formulario para agregar un nuevo comentario -->
+    <div class="add-comment mt-4 p-3 bg-light shadow-sm" *ngIf="rol !== 'Propietario'">
+      <h5 class="text-muted">Agregar un comentario</h5>
+      <textarea
+        [(ngModel)]="nuevoComentario.texto"
+        placeholder="Escribe tu comentario aquí..."
+        rows="3"
+        class="form-control mb-2"
+      ></textarea>
+      <button (click)="agregarComentario()" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Agregar comentario
+      </button>
+    </div>
+
+    <!-- Formulario para editar un comentario -->
+    <div *ngIf="comentarioEditando" class="edit-comment-form mt-4 p-3 bg-light shadow-sm">
+      <h5 class="text-muted">Editar comentario</h5>
+      <textarea [(ngModel)]="comentarioEditando.texto" rows="3" class="form-control mb-2"></textarea>
+      <button (click)="guardarComentario()" class="btn btn-success">Guardar comentario</button>
+      <button (click)="cancelarEdicion()" class="btn btn-secondary ms-2">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Ubicación -->
+  <div class="map-container my-4">
+    <h4 class="text-muted">Ubicación</h4>
+    <iframe
+      *ngIf="propiedadSeleccionada.mapaUrl"
+      [src]="propiedadSeleccionada.mapaUrl"
+      width="100%"
+      height="300"
+      style="border: 0;"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+    <p *ngIf="!propiedadSeleccionada.mapaUrl" class="text-muted">No hay ubicación disponible.</p>
+  </div>
+
+  <!-- Información del propietario -->
+  <div class="owner-details my-4 p-3 bg-light shadow-sm">
+    <h4 class="text-muted">Propietario</h4>
+    <p><strong>{{ propiedadSeleccionada.propietario.nombre || 'Sin propietario especificado' }}</strong></p>
+    <p><strong>Correo:</strong> {{ propiedadSeleccionada.propietario.correo || 'Sin correo especificado' }}</p>
+    <p><strong>Teléfono:</strong> {{ propiedadSeleccionada.propietario.telefono || 'Sin teléfono especificado' }}</p>
+  </div>
+</div>

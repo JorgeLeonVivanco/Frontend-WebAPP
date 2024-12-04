@@ -1,0 +1,41 @@
+<div class="interface-container">
+  <div class="properties-list">
+    <h3 class="dynamic-title">Propiedades Registradas</h3>
+    <div *ngFor="let propiedad of lista_propiedades" class="property-item" (click)="verDetallePropiedad(propiedad.id)">
+      <img
+        [src]="propiedad.imagenes[0]"
+        alt="Imagen de la propiedad"
+        class="property-image"
+        *ngIf="propiedad.imagenes.length > 0"
+      />
+      <div class="property-details">
+        <p><strong>Dirección:</strong> {{ propiedad.direccion }}</p>
+        <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>
+        <p><strong>Capacidad:</strong> {{ propiedad.capacidad }}</p>
+        <p><strong>Precio:</strong> ${{ propiedad.precio }}</p>
+        <p><strong>Estado:</strong> {{ propiedad.estados }}</p>
+        <p><strong>Servicios:</strong> {{ formatServicios(propiedad.servicios_json) }}</p>
+
+        <!-- Ícono de advertencia si hay comentarios -->
+        <div *ngIf="propiedad.comentarios && propiedad.comentarios.length > 0" class="comment-warning">
+          <mat-icon color="warn">comment</mat-icon>
+          <span class="comment-count">{{ propiedad.comentarios.length }}</span> Comentarios
+        </div>
+      </div>
+      <div class="property-actions">
+        <button mat-icon-button (click)="goEditar(propiedad.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="eliminarPropiedad(propiedad.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+    <div class="map-container">
+            <!-- En el archivo propietario-screen.component.html -->
+            <div id="map"></div>
+    </div>
+
+    </div>

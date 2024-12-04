@@ -1,0 +1,140 @@
+<div class="wrapper">
+  <div class="background"></div>
+  <div class="section-registro">
+    <div class="body-registro">
+      <div class="row mt-3 mb-3">
+        <div class="form-group col-12">
+          <label class="title-user" for="tipo_usuario">Registro de casa o departamento</label>
+        </div>
+      </div>
+
+<!-- Dirección -->
+<div *ngIf="errors.direccion" class="invalid-feedback">{{ errors.direccion }}</div>
+<mat-form-field class="mat-input" appearance="outline" id="direccion-input-field">
+  <mat-label>Dirección</mat-label>
+  <input
+    matInput
+    [(ngModel)]="propiedad.direccion"
+    placeholder="Escribe la dirección de tu propiedad/casa"
+    (input)="onDireccionInputChange($event)">
+</mat-form-field>
+
+<!-- Mostrar sugerencias de direcciones -->
+<div *ngIf="direccionesSugeridas.length > 0" class="sugerencias">
+  <ul>
+    <li *ngFor="let direccion of direccionesSugeridas" (click)="seleccionarDireccion(direccion)">
+      {{ direccion.display_name }} <!-- Muestra display_name -->
+    </li>
+  </ul>
+</div>
+
+
+      <!-- Número de habitaciones -->
+      <div *ngIf="errors.habitaciones" class="invalid-feedback">{{ errors.habitaciones }}</div>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Número de habitaciones</mat-label>
+        <mat-select [(ngModel)]="propiedad.habitaciones">
+          <mat-option *ngFor="let habitacion of habitaciones" [value]="habitacion.value">
+            {{ habitacion.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Capacidad -->
+      <div *ngIf="errors.capacidad" class="invalid-feedback">{{ errors.capacidad }}</div>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Capacidad</mat-label>
+        <mat-select [(ngModel)]="propiedad.capacidad">
+          <mat-option *ngFor="let capacidad of capacidades" [value]="capacidad.value">
+            {{ capacidad.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Servicios -->
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Selecciona los servicios</mat-label>
+        <mat-select [(ngModel)]="propiedad.servicios_json" multiple>
+          <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">
+            {{ servicio.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Número de sanitarios -->
+      <div *ngIf="errors.sanitarios" class="invalid-feedback">{{ errors.sanitarios }}</div>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Número de sanitarios</mat-label>
+        <mat-select [(ngModel)]="propiedad.sanitarios">
+          <mat-option *ngFor="let sanitario of sanitarioss" [value]="sanitario.value">
+            {{ sanitario.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Estado -->
+      <div *ngIf="errors.estados" class="invalid-feedback">{{ errors.estados }}</div>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="propiedad.estados">
+          <mat-option *ngFor="let estado of estadoss" [value]="estado.viewValue">
+            {{ estado.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Precio -->
+      <div *ngIf="errors.precio" class="invalid-feedback">{{ errors.precio }}</div>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Precio</mat-label>
+        <span matPrefix>$&nbsp;</span>
+        <input
+          matInput
+          [(ngModel)]="propiedad.precio"
+          placeholder="Escribe el precio"
+          (input)="formatPrecio($event)"
+          type="text"
+        />
+      </mat-form-field>
+
+      <!-- Teléfono -->
+      <div *ngIf="errors.telefono" class="invalid-feedback">{{ errors.telefono }}</div>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input
+          matInput
+          [(ngModel)]="propiedad.telefono"
+          placeholder="Escribe el número de teléfono"
+          (input)="formatTelefono($event)"
+          (keypress)="validateNumericInput($event)"
+          type="text"
+        />
+      </mat-form-field>
+
+      <!-- Imágenes -->
+      <div class="image-upload-section">
+        <label for="file-input" class="file-upload-label">Subir imágenes</label>
+        <input id="file-input" type="file" (change)="onFileSelected($event)" multiple accept="image/*">
+        <div class="image-preview">
+          <!-- Imágenes existentes -->
+          <div *ngFor="let img of existingImages; let i = index" class="image-container">
+            <img [src]="img" alt="Imagen existente" width="100">
+            <button (click)="removeExistingImage(i)" class="remove-button">X</button>
+          </div>
+          <!-- Imágenes nuevas -->
+          <div *ngFor="let img of selectedImages; let i = index" class="image-container">
+            <img [src]="getPreviewUrl(img)" alt="Nueva imagen" width="100">
+            <button (click)="removeImage(i)" class="remove-button">X</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="section-buttons">
+        <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+        <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+        <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="registrar()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

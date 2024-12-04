@@ -1,0 +1,95 @@
+<!-- Botón para abrir el modal -->
+<button class="filter-button" (click)="openModal()">
+    <i class="bi bi-funnel-fill"></i> Filtros
+  </button>
+  
+  <!-- Estructura del modal -->
+  <div class="filter-modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeModal()">×</button>
+      <h3>Configurar Filtros</h3>
+      <form>
+        <!-- Rango de Precio -->
+        <label for="priceRange">
+          Rango de Precio: <span>{{ filters.price | currency: 'USD' }}</span>
+        </label>
+        <input
+          type="range"
+          id="priceRange"
+          min="0"
+          max="10000"
+          [(ngModel)]="filters.price"
+          name="priceRange"
+        />
+  
+        <!-- Distancia -->
+        <label for="distance">
+          Distancia a la Universidad: <span>{{ filters.distance }} km</span>
+        </label>
+        <input
+          type="range"
+          id="distance"
+          min="0"
+          max="50"
+          [(ngModel)]="filters.distance"
+          name="distance"
+        />
+  
+        <!-- Tipo de Propiedad -->
+        <label for="propertyType">Tipo de Propiedad:</label>
+        <select
+          id="propertyType"
+          [(ngModel)]="filters.propertyType"
+          name="propertyType"
+        >
+          <option value="">Cualquiera</option>
+          <option value="Apartamento">Apartamento</option>
+          <option value="Casa">Casa</option>
+          <option value="Estudio">Estudio</option>
+        </select>
+  
+        <!-- Checkboxes para servicios -->
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.mascotas" name="mascotas" />
+            Mascotas
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.wifi" name="wifi" />
+            Wifi
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.cocina" name="cocina" />
+            Cocina
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              [(ngModel)]="filters.estacionamiento"
+              name="estacionamiento"
+            />
+            Estacionamiento
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.lavadora" name="lavadora" />
+            Lavadora
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.amueblado" name="amueblado" />
+            Amueblado
+          </label>
+        </div>
+  
+        <!-- Botones -->
+        <div class="modal-buttons">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">
+            Aplicar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="resetFilters()">
+            Limpiar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
