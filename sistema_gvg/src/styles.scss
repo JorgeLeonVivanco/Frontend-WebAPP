@@ -1,0 +1,49 @@
+$primary: #F7BE09;
+
+// Importa Bootstrap y módulos necesarios desde node_modules
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/variables";
+
+// Mezclas para las fuentes
+@mixin font1() {
+  @font-face {
+    font-family: 'ITC';
+    src: url('/assets/fonts/ITC.otf') format('opentype'); // Ruta corregida
+  }
+  font-family: 'ITC', serif;
+}
+
+@mixin font2() {
+  @font-face {
+    font-family: 'BebasNeue';
+    src: url('/assets/fonts/BebasNeue.otf') format('opentype'); // Ruta corregida
+  }
+  font-family: 'BebasNeue', serif;
+}
+
+@mixin font3() {
+  @font-face {
+    font-family: 'Gontserrat';
+    src: url('/assets/fonts/gontserrat.ttf') format('truetype'); // Ruta corregida
+  }
+  font-family: 'Gontserrat', serif;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Altura completa de la ventana */
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que ocupe toda la pantalla */
+}
+
+.main-content {
+  flex: 1; /* Empuja el footer hacia abajo */
+}

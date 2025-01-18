@@ -1,0 +1,55 @@
+.footer {
+  background-color: #1165b9; /* Fondo oscuro */
+  color: #000000; /* Texto blanco */
+  text-align: center;
+  padding: 20px 0; /* Espaciado superior e inferior */
+  position: relative;
+  width: 100%;
+  font-size: 1rem; /* Tamaño base del texto */
+}
+
+.fondo-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px; /* Espaciado entre elementos */
+  margin: 0 auto; /* Centra el contenido */
+}
+
+.letras {
+  color: #000000; /* Color blanco */
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem; /* Ajuste de tamaño del texto */
+  transition: color 0.3s ease; /* Transición suave */
+  
+  &:hover {
+    color: #f7be09; /* Color amarillo al pasar el cursor */
+    text-decoration: underline; /* Subrayado en hover */
+  }
+}
+
+.footer-icon {
+  font-size: 1.5rem; /* Tamaño base de los íconos */
+  margin: 0 10px; /* Espaciado lateral */
+  color: #000000; /* Color inicial */
+  transition: color 0.3s ease; /* Efecto suave */
+
+  &:hover {
+    color: #f7be09; /* Color amarillo en hover */
+  }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 0.9rem; /* Reduce el tamaño del texto */
+    padding: 15px 0; /* Ajusta el espaciado */
+  }
+
+  .footer-icon {
+    font-size: 1.2rem; /* Reduce el tamaño de los íconos */
+    margin: 0 5px; /* Reduce el espacio entre íconos */
+  }
+}

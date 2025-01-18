@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg bg-nav font-nav">
+  <div class="container-fluid">
+    <!-- Mostrar logo solo si el usuario ha iniciado sesión -->
+    <a *ngIf="userLoginOn">
+      <img src="../../../../assets/img/logo.png" class="logo" alt="Logo">
+    </a>
+
+    <!-- Botón de menú -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navegación -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <!-- Mostrar solo "Contacto" en la página de login -->
+        <li *ngIf="isLoginPage" class="nav-item">
+          <a class="nav-link" href="#">CONTACTO</a>
+        </li>
+
+        <!-- Mostrar todas las opciones si no estamos en la página de login -->
+        <ng-container *ngIf="!isLoginPage && userLoginOn">
+          <li class="nav-item">
+            <button class="btn btn-link text-dark" (click)="goBack()" aria-label="Back">
+              <i class="fas fa-arrow-left fa-lg"></i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-link text-dark" (click)="goHome()" aria-label="Home">
+              <i class="fas fa-home fa-lg"></i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">NOTICIAS</a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-link nav-link" (click)="logout()">CERRAR SESIÓN</button>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

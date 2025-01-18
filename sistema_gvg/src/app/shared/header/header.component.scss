@@ -1,0 +1,72 @@
+@import "src/styles.scss"; // Ajusta la ruta según tu estructura
+
+/* Estilo general del navbar */
+.bg-nav {
+  background-color: #ffffff; /* Fondo blanco del navbar */
+  padding: 10px; /* Ajusta el espacio interno del navbar */
+}
+
+
+.font-nav {
+  @include font1();
+  text-align: center;
+  color: #170042; /* Color del texto principal */
+}
+
+.logo {
+  width: 120px; /* Tamaño base */
+  height: auto; /* Mantiene proporción */
+  margin: 0 50px; /* Espaciado lateral */
+
+  /* Ajustes responsivos */
+  @media (max-width: 992px) {
+    width: 100px; /* Reduce tamaño en pantallas medianas */
+  }
+
+  @media (max-width: 768px) {
+    width: 80px; /* Tamaño más pequeño para tablets */
+    margin: 0 auto; /* Centra el logo */
+  }
+
+  @media (max-width: 576px) {
+    width: 60px; /* Tamaño reducido para móviles */
+  }
+}
+
+.nav-link {
+  color: #000000; /* Cambiado a blanco para mejor contraste */
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem; /* Espaciado adicional para botones */
+
+  &:hover {
+    color: #f7be09; /* Color de hover */
+    text-decoration: underline;
+  }
+}
+
+.navbar-toggler-icon {
+  background-color: #000000; /* Icono blanco para toggler */
+  border-radius: 50%; /* Hace el icono circular */
+  padding: 5px; /* Espaciado interno */
+}
+
+.navbar-nav {
+  align-items: center; /* Centra verticalmente los elementos */
+}
+
+/* Estilo adicional para navegación a la derecha */
+.ml-auto {
+  margin-left: auto; /* Empuja los elementos a la derecha */
+}
+
+/* Ajustes para el responsive de navegación */
+.navbar-collapse {
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+}
+
+.navbar {
+  padding: 0.5rem 1rem; /* Ajuste del espaciado interno del navbar */
+}

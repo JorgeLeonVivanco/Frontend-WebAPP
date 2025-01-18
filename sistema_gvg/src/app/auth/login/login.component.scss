@@ -1,0 +1,96 @@
+// Contenedor principal
+.login-container {
+  min-height: 100vh; // Altura completa de la ventana
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6; // Color de fondo más suave
+
+  .row {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+  }
+}
+
+// Contenedor del logo
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .logo {
+    max-width: 60%; // Tamaño ajustado para una mejor proporción
+    height: auto;
+    transition: transform 0.3s ease; // Efecto de zoom suave
+
+    &:hover {
+      transform: scale(1.1); // Aumenta ligeramente al pasar el ratón
+    }
+  }
+}
+
+// Formulario
+.form-container {
+  .form {
+    background: #ffffff;
+    border-radius: 15px; // Bordes más redondeados para un diseño moderno
+    padding: 50px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15); // Sombra más suave
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px); // Efecto de elevación al pasar el ratón
+    }
+  }
+
+  .campo {
+    border: none;
+    border-bottom: 2px solid #5a5454cc;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #170042; // Color de enfoque para mayor accesibilidad
+      outline: none;
+    }
+  }
+
+  .titulo1 {
+    color: #170042;
+    font-weight: bold;
+    margin-bottom: 30px;
+    font-size: 2.5rem; // Tamaño más grande para destacar
+    text-align: center;
+  }
+
+  .titulo3 {
+    color: #333333; // Color más neutro para mejor contraste
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .btn-primary {
+    background-color: #06c000;
+    border-color: #06c000;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #009900; // Color más oscuro al pasar el ratón
+      border-color: #009900;
+      transform: scale(1.05); // Efecto de zoom
+    }
+
+    &:active {
+      transform: scale(0.98); // Efecto de presión al hacer clic
+    }
+  }
+}
